@@ -1,1 +1,6 @@
-﻿
+﻿@model RailCommander.Core.Track.Layout
+
+
+@foreach (var b in Model.Blocks) {
+    <div>@b.Name</div>
+}

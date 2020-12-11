@@ -9,5 +9,6 @@ namespace RailCommander.Core.Track
 
         public IBlockEnd EndA { get; }
         public IBlockEnd EndB { get; }
+        string Name { get; }
     }
 }
