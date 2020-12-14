@@ -6,9 +6,10 @@
         {
             Name = name;
         }
-        public bool IsOccupied { get; }
+
         public IBlockEnd EndA { get; }
         public IBlockEnd EndB { get; }
+        public IBlockOccupancy Occupancy { get; }
 
         public string Name { get; }
 

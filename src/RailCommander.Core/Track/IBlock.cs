@@ -1,14 +1,12 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 
 namespace RailCommander.Core.Track
 {
     public interface IBlock
     {
-        bool IsOccupied { get; }
-
+        string Name { get; }
         public IBlockEnd EndA { get; }
         public IBlockEnd EndB { get; }
-        string Name { get; }
+        IBlockOccupancy Occupancy { get; }
     }
 }
