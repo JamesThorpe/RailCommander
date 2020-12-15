@@ -32,7 +32,7 @@ namespace RailCommander.Core.Track
 
             var visited = new List<IBlock>();
             var toCheck = new Queue<IBlock>();
-            var path = new Dictionary<IBlock, IBlock>();
+            var path = new Dictionary<IBlock, (IBlock block, bool wrongway)>();
 
             visited.Add(start);
             toCheck.Enqueue(start);
@@ -49,9 +49,47 @@ namespace RailCommander.Core.Track
 
                 foreach (var c in connections) {
                     var next = FindBlock(c);
+
+                    var wasAToB = current.EndB?.BlockConnections?.ContainsKey(c) ?? false;
+                    var wrongWay = false;
+                    switch (current.PreferredDirection) {
+                        case BlockPreferredDirection.AtoB when !wasAToB:
+                        case BlockPreferredDirection.BtoA when wasAToB:
+                            wrongWay = true;
+                            break;
+                    }
+
+
+                    if (visited.Contains(next) && path.ContainsKey(next)) {
+                        var wwcn = 0;
+                        var bb = next;
+                        while (path.ContainsKey(bb)) {
+                            if (path[bb].wrongway) {
+                                wwcn++;
+                            }
+
+                            bb = path[bb].block;
+                        }
+
+                        var wwcc = 0;
+                        bb = current;
+                        while (path.ContainsKey(bb)) {
+                            if (path[bb].wrongway) {
+                                wwcc++;
+                            }
+
+                            bb = path[bb].block;
+                        }
+
+                        if (wwcc < wwcn) {
+                            path[next] = (current, wrongWay);
+                        }
+                    }
+                    
+                    
                     if (!visited.Contains(next)) {
                         visited.Add(next);
-                        path.Add(next, current);
+                        path.Add(next, (current, wrongWay));
                         toCheck.Enqueue(next);
                     }
                 }
@@ -65,7 +103,7 @@ namespace RailCommander.Core.Track
             var b = destination;
             while (path.ContainsKey(b)) {
                 blocks.Add(b);
-                b = path[b];
+                b = path[b].block;
             }
             blocks.Add(b);
 
@@ -73,5 +111,11 @@ namespace RailCommander.Core.Track
             return new Route(blocks.ToArray());
         }
 
+        public void AddBlocks(IEnumerable<IBlock> blocks)
+        {
+            foreach (var b in blocks) {
+                AddBlock(b);
+            }
+        }
     }
 }

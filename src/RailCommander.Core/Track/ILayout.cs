@@ -9,5 +9,6 @@ namespace RailCommander.Core.Track
         IEnumerable<IBlock> Blocks { get; }
 
         void AddBlock(IBlock block);
+        void AddBlocks(IEnumerable<IBlock> block);
     }
 }

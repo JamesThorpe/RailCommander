@@ -10,6 +10,7 @@
         public IBlockEnd EndA { get; }
         public IBlockEnd EndB { get; }
         public IBlockOccupancy Occupancy { get; }
+        public BlockPreferredDirection PreferredDirection { get; }
 
         public string Name { get; }
 
