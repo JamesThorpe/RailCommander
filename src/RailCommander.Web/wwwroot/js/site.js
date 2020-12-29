@@ -26,6 +26,11 @@ const options = {
 }
 const { loadModule } = window['vue3-sfc-loader'];
 Vue.createApp({
+    data() {
+        return {
+            test: 3
+        }
+    },
     components: {
         'my-app': Vue.defineAsyncComponent(()=>loadModule('/vues/Test.vue', options))
     }
