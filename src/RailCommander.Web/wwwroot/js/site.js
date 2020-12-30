@@ -1,7 +1,9 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿"use strict";
 
-// Write your JavaScript code.
+import socket from "/js/SocketHandler.js"
+import "/js/socket-console-logger.js"
+socket.open();
+
 
 const options = {
 
@@ -32,6 +34,10 @@ Vue.createApp({
         }
     },
     components: {
-        'my-app': Vue.defineAsyncComponent(()=>loadModule('/vues/Test.vue', options))
+        'my-app': Vue.defineAsyncComponent(() => loadModule('/vues/Test.vue', options))
     }
-}).mount('#app')
+}).mount('#app');
+
+
+
+
