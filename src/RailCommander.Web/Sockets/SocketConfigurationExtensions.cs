@@ -18,14 +18,13 @@ namespace RailCommander.Web
                 KeepAliveInterval = TimeSpan.FromSeconds(30),
                 ReceiveBufferSize = SocketManager.BufferSize
             });
-
+            
             return app.Use(async (context, next) => {
                 if (context.Request.Path == "/ws") {
                     if (context.WebSockets.IsWebSocketRequest) {
-                        using var ws = await context.WebSockets.AcceptWebSocketAsync();
                         var sm = context.RequestServices.GetService<SocketManager>();
                         
-                        await sm.HandleSocket(ws);
+                        await sm.HandleSocket(context);
                         
                     } else {
                         context.Response.StatusCode = 400;

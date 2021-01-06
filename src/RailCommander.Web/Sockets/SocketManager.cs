@@ -7,6 +7,8 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using RailCommander.Web.Sockets;
 
 namespace RailCommander.Web
@@ -14,6 +16,7 @@ namespace RailCommander.Web
     public class SocketManager
     {
         private readonly SocketHandlerFactory _handlerFactory;
+        private readonly ILogger _logger;
         public const int BufferSize = 4096;
 
         private readonly List<WebSocket> _sockets;
@@ -31,17 +34,22 @@ namespace RailCommander.Web
             }
         }
 
-        public SocketManager(SocketHandlerFactory handlerFactory)
+        public SocketManager(SocketHandlerFactory handlerFactory, ILogger<SocketManager> logger)
         {
             _handlerFactory = handlerFactory;
+            _logger = logger;
             _sockets = new List<WebSocket>();
         }
 
-        public async Task HandleSocket(WebSocket ws)
+        public async Task HandleSocket(HttpContext context)
         {
+            using var ws = await context.WebSockets.AcceptWebSocketAsync();
+
             lock (_socketLock) {
                 _sockets.Add(ws);
             }
+
+            _logger.LogInformation("WebSocket client connected from {0}:{1}", context.Connection.RemoteIpAddress, context.Connection.RemotePort);
 
             var buffer = new byte[BufferSize];
             var msg = new StringBuilder();
