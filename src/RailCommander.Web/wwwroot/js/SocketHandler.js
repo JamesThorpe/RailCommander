@@ -4,11 +4,13 @@ const socketHandlers = {};
 
 function openSocket() {
     var ws = new WebSocket("ws://" + window.location.host + "/ws");
-    ws.onopen = function() {
+    ws.onopen = function () {
+        /*
         ws.send(JSON.stringify({
             type: "echo",
             message: "Client opened at " + new Date()
         }));
+        */
     }
     ws.onmessage = function(m) {
         const msg = JSON.parse(m.data);

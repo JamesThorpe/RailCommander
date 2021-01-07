@@ -68,7 +68,7 @@ namespace RailCommander.Web
                     }
 
                     //TODO: add version?
-                    await SendMessage(ws, new ConsoleLogSocketMessage("Connected to RailCommander"));
+                    await SendMessage(ws, new ConsoleLogSocketMessage(LogLevel.Information,"Connected to RailCommander"));
 
                     msg.Clear();
                 }
@@ -81,10 +81,22 @@ namespace RailCommander.Web
             }
         }
 
-        public async Task SendMessage(WebSocket socket, SocketMessage message)
+        public Task SendMessage(WebSocket socket, SocketMessage message)
         {
             var b = JsonSerializer.SerializeToUtf8Bytes<object>(message);
-            await socket.SendAsync(new ArraySegment<byte>(b), WebSocketMessageType.Text, true, CancellationToken.None);
+            return socket.SendAsync(new ArraySegment<byte>(b), WebSocketMessageType.Text, true, CancellationToken.None);
+        }
+
+        public Task SendToAll(SocketMessage message)
+        {
+            var t = new List<Task>();
+            lock (_socketLock) {
+                foreach (var ws in _sockets) {
+                    t.Add(SendMessage(ws, message));
+                }
+            }
+
+            return Task.WhenAll(t);
         }
     }
 }

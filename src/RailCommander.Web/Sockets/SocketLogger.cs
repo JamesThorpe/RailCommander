@@ -25,11 +25,9 @@ namespace RailCommander.Web.Sockets
 
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
-            if (_socketManager != null) {
-                foreach (var ws in _socketManager.Clients) {
-                    _socketManager.SendMessage(ws, new ConsoleLogSocketMessage(formatter(state, exception)));
-                }
-            }
+            _socketManager?.SendToAll(new ConsoleLogSocketMessage(logLevel, formatter(state, exception)));
+
+            //console supports debug, info, warn, error
         }
     }
 
