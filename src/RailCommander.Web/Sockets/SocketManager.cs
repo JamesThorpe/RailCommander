@@ -34,11 +34,12 @@ namespace RailCommander.Web
             }
         }
 
-        public SocketManager(SocketHandlerFactory handlerFactory, ILogger<SocketManager> logger)
+        public SocketManager(SocketHandlerFactory handlerFactory, ILogger<SocketManager> logger, ILoggerFactory loggerFactory)
         {
             _handlerFactory = handlerFactory;
             _logger = logger;
             _sockets = new List<WebSocket>();
+            loggerFactory.AddProvider(new SocketLoggerProvider(this));
         }
 
         public async Task HandleSocket(HttpContext context)
