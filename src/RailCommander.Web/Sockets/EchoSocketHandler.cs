@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using RailCommander.Web.Sockets;
 
 namespace RailCommander.Web
@@ -23,7 +24,7 @@ namespace RailCommander.Web
         {
             var msg = jsonDocument.RootElement.GetProperty("message").GetString();
             foreach (var c in _manager.Clients.Where(c => c != socket)) {
-                await _manager.SendMessage(c, new ConsoleLogSocketMessage(msg));
+                await _manager.SendMessage(c, new ConsoleLogSocketMessage(LogLevel.Information, msg));
             }
         }
     }

@@ -7,6 +7,8 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using RailCommander.Web.Sockets;
 
 namespace RailCommander.Web
@@ -14,6 +16,7 @@ namespace RailCommander.Web
     public class SocketManager
     {
         private readonly SocketHandlerFactory _handlerFactory;
+        private readonly ILogger _logger;
         public const int BufferSize = 4096;
 
         private readonly List<WebSocket> _sockets;
@@ -31,17 +34,23 @@ namespace RailCommander.Web
             }
         }
 
-        public SocketManager(SocketHandlerFactory handlerFactory)
+        public SocketManager(SocketHandlerFactory handlerFactory, ILogger<SocketManager> logger, ILoggerFactory loggerFactory)
         {
             _handlerFactory = handlerFactory;
+            _logger = logger;
             _sockets = new List<WebSocket>();
+            loggerFactory.AddProvider(new SocketLoggerProvider(this));
         }
 
-        public async Task HandleSocket(WebSocket ws)
+        public async Task HandleSocket(HttpContext context)
         {
+            using var ws = await context.WebSockets.AcceptWebSocketAsync();
+
             lock (_socketLock) {
                 _sockets.Add(ws);
             }
+
+            _logger.LogInformation("WebSocket client connected from {0}:{1}", context.Connection.RemoteIpAddress, context.Connection.RemotePort);
 
             var buffer = new byte[BufferSize];
             var msg = new StringBuilder();
@@ -59,7 +68,7 @@ namespace RailCommander.Web
                     }
 
                     //TODO: add version?
-                    await SendMessage(ws, new ConsoleLogSocketMessage("Connected to RailCommander"));
+                    await SendMessage(ws, new ConsoleLogSocketMessage(LogLevel.Information,"Connected to RailCommander"));
 
                     msg.Clear();
                 }
@@ -72,10 +81,22 @@ namespace RailCommander.Web
             }
         }
 
-        public async Task SendMessage(WebSocket socket, SocketMessage message)
+        public Task SendMessage(WebSocket socket, SocketMessage message)
         {
             var b = JsonSerializer.SerializeToUtf8Bytes<object>(message);
-            await socket.SendAsync(new ArraySegment<byte>(b), WebSocketMessageType.Text, true, CancellationToken.None);
+            return socket.SendAsync(new ArraySegment<byte>(b), WebSocketMessageType.Text, true, CancellationToken.None);
+        }
+
+        public Task SendToAll(SocketMessage message)
+        {
+            var t = new List<Task>();
+            lock (_socketLock) {
+                foreach (var ws in _sockets) {
+                    t.Add(SendMessage(ws, message));
+                }
+            }
+
+            return Task.WhenAll(t);
         }
     }
 }
