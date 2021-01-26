@@ -43,12 +43,112 @@ const opt = {
         width: 8,
         margin: 4,
         padding: 2
-    }
+    },
+    gridSize: 24
+
 }
 opt.section.overallWidth = opt.section.width + (opt.section.margin * 2) + (opt.section.padding * 2);
 
-var draw = SVG().addTo('#svg').size(500, 500);
-draw.rect("100%", "100%").attr({ fill: '#060' });
+const fn = {
+    gridMove: function (x, y) {
+        this.move(x * opt.gridSize, (y * opt.gridSize) + ((opt.gridSize - opt.section.overallWidth) / 2));
+    }
+}
+
+var svg = SVG().addTo('#svg').size(500, 500);
+var gridPattern = svg.pattern(opt.gridSize*2, opt.gridSize*2, function(a) {
+    a.rect(opt.gridSize, opt.gridSize).fill('#050');
+    a.rect(opt.gridSize, opt.gridSize).fill('#060').move(0, opt.gridSize);
+    a.rect(opt.gridSize, opt.gridSize).fill('#050').move(opt.gridSize, opt.gridSize);
+    a.rect(opt.gridSize, opt.gridSize).fill('#060').move(opt.gridSize, 0);
+});
+
+svg.rect("100%", "100%").fill(gridPattern);
+
+function createSection(length) {
+    const group = svg.group();
+    const bg = group.polygon(`0 0, ${length * opt.gridSize} 0, ${length * opt.gridSize} ${opt.section.overallWidth}, 0 ${opt.section.overallWidth}`).fill('#aaa');
+    bg.move(0, (opt.gridSize - opt.section.overallWidth) / 2);
+    const pd = group.polygon(`0 0, ${length * opt.gridSize} 0, ${length * opt.gridSize} ${opt.section.width + (opt.section.padding*2)}, 0 ${opt.section.width + (opt.section.padding*2)}`).fill('#000');
+    pd.move(0, (opt.gridSize - (opt.section.width + (opt.section.padding*2))) / 2);
+    const rail = group.polygon(`0 0, ${length * opt.gridSize} 0, ${length * opt.gridSize} ${opt.section.width}, 0 ${opt.section.width}`).fill('#fff');
+    rail.move(0, (opt.gridSize - opt.section.width) / 2);
+    group.gridMove = fn.gridMove;
+    return group;
+}
+
+function createCorner() {
+    const group = svg.group();
+    
+    function polygon(offset) {
+        return group.polygon(`0 ${offset},  ${opt.gridSize - offset} ${opt.gridSize}, ${offset} ${opt.gridSize}, 0 ${opt.gridSize - offset}`);
+    }
+
+    const bg = polygon((opt.gridSize - opt.section.overallWidth) / 2).fill('#aaa');
+
+    const pd = polygon((opt.gridSize - (opt.section.width + opt.section.padding * 2)) / 2).fill('#000');
+
+    const rail = polygon((opt.gridSize - opt.section.width) / 2).fill('#fff');
+    
+    group.gridMove = fn.gridMove;
+    return group;
+}
+
+function createCorner2() {
+    const group = svg.group();
+
+    function polygon(width) {
+        const offset = (opt.gridSize - width) / 2;
+
+        return group.polygon(`
+            0 0,
+            ${Math.tan(Math.PI / 8) * width} 0,
+            ${Math.cos(Math.PI / 4) * width} ${width - (Math.sin(Math.PI / 4) * width)},
+            0 ${width}
+        `).move(0, offset);
+    }
+    const bg = polygon(opt.section.overallWidth).fill('#aaa');
+
+    const pd = polygon(opt.section.width + opt.section.padding * 2).fill('#000');
+
+    const rail = polygon(opt.section.width).fill('#fff');
+
+    group.gridMove = fn.gridMove;
+    return group;
+}
+
+function createCorner3() {
+    const group = svg.group();
+
+    function polygon(width) {
+        const offset = (opt.gridSize - width) / 2;
+        const leftOffset = opt.gridSize - Math.cos(Math.PI / 4) * width - (offset/2 * Math.tan(Math.PI / 4));
+        return group.polygon(`
+            0 0,
+            ${leftOffset} 0,
+            ${Math.tan(Math.PI / 8) * width + leftOffset} 0,
+            ${Math.cos(Math.PI / 4) * width + leftOffset} ${width - (Math.sin(Math.PI / 4) * width)},
+            ${leftOffset} ${width},
+            0, ${width}
+        `).move(0, offset);
+    }
+    const bg = polygon(opt.section.overallWidth).fill('#aaa');
+
+    const pd = polygon(opt.section.width + opt.section.padding * 2).fill('#000');
+
+    const rail = polygon(opt.section.width).fill('#fff');
+
+    group.gridMove = fn.gridMove;
+    return group;
+}
+
+var s1 = createSection(2);
+s1.gridMove(1, 1);
+var c1 = createCorner3();
+c1.gridMove(3, 1);
+
+
+/*
 
 function createSection(length) {
     var group = draw.group();
@@ -77,7 +177,7 @@ s2.transform({ origin: 'center' });
 s2.transform({ px: 150 + (50 + (Math.cos(Math.PI / 4) * (50))) + (Math.sin(Math.PI / 4) * (opt.section.overallWidth / 2)), py: 50 + ((opt.section.overallWidth / 2) + (Math.sin(Math.PI / 4) * (50))) - (Math.sin(Math.PI / 4) * (opt.section.overallWidth / 2))}).rotate(45);
 sa.move(200, 40);
 
-
+*/
 
 /*
 group.click(function() {
