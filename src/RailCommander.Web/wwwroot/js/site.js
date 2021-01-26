@@ -51,7 +51,7 @@ opt.section.overallWidth = opt.section.width + (opt.section.margin * 2) + (opt.s
 
 const fn = {
     gridMove: function (x, y) {
-        this.move(x * opt.gridSize, (y * opt.gridSize) + ((opt.gridSize - opt.section.overallWidth) / 2));
+        return this.move(x * opt.gridSize, (y * opt.gridSize) + ((opt.gridSize - opt.section.overallWidth) / 2));
     }
 }
 
@@ -74,77 +74,41 @@ function createSection(length) {
     const rail = group.polygon(`0 0, ${length * opt.gridSize} 0, ${length * opt.gridSize} ${opt.section.width}, 0 ${opt.section.width}`).fill('#fff');
     rail.move(0, (opt.gridSize - opt.section.width) / 2);
     group.gridMove = fn.gridMove;
+    group.transform({ origin: { x: opt.gridSize / 2, y: opt.gridSize / 2 } });
     return group;
 }
 
 function createCorner() {
     const group = svg.group();
     
-    function polygon(offset) {
-        return group.polygon(`0 ${offset},  ${opt.gridSize - offset} ${opt.gridSize}, ${offset} ${opt.gridSize}, 0 ${opt.gridSize - offset}`);
+    function polygon(offset, width) {
+        let x = ((width / 2) + (opt.gridSize / 2)) * Math.tan(Math.PI / 8);
+        return group.polygon(`
+            0 ${offset},
+            ${x} ${offset},
+            ${opt.gridSize - offset} ${opt.gridSize - x},
+            ${opt.gridSize - offset} ${opt.gridSize},
+            ${offset} ${opt.gridSize},
+            0 ${opt.gridSize - offset}`);
     }
 
-    const bg = polygon((opt.gridSize - opt.section.overallWidth) / 2).fill('#aaa');
+    const bg = polygon((opt.gridSize - opt.section.overallWidth) / 2, opt.section.overallWidth).fill('#aaa');
 
-    const pd = polygon((opt.gridSize - (opt.section.width + opt.section.padding * 2)) / 2).fill('#000');
+    const pd = polygon((opt.gridSize - (opt.section.width + opt.section.padding * 2)) / 2, opt.section.width + (opt.section.padding * 2)).fill('#000');
 
-    const rail = polygon((opt.gridSize - opt.section.width) / 2).fill('#fff');
+    const rail = polygon((opt.gridSize - opt.section.width) / 2, opt.section.width).fill('#fff');
     
     group.gridMove = fn.gridMove;
     return group;
 }
 
-function createCorner2() {
-    const group = svg.group();
-
-    function polygon(width) {
-        const offset = (opt.gridSize - width) / 2;
-
-        return group.polygon(`
-            0 0,
-            ${Math.tan(Math.PI / 8) * width} 0,
-            ${Math.cos(Math.PI / 4) * width} ${width - (Math.sin(Math.PI / 4) * width)},
-            0 ${width}
-        `).move(0, offset);
-    }
-    const bg = polygon(opt.section.overallWidth).fill('#aaa');
-
-    const pd = polygon(opt.section.width + opt.section.padding * 2).fill('#000');
-
-    const rail = polygon(opt.section.width).fill('#fff');
-
-    group.gridMove = fn.gridMove;
-    return group;
-}
-
-function createCorner3() {
-    const group = svg.group();
-
-    function polygon(width) {
-        const offset = (opt.gridSize - width) / 2;
-        const leftOffset = opt.gridSize - Math.cos(Math.PI / 4) * width - (offset/2 * Math.tan(Math.PI / 4));
-        return group.polygon(`
-            0 0,
-            ${leftOffset} 0,
-            ${Math.tan(Math.PI / 8) * width + leftOffset} 0,
-            ${Math.cos(Math.PI / 4) * width + leftOffset} ${width - (Math.sin(Math.PI / 4) * width)},
-            ${leftOffset} ${width},
-            0, ${width}
-        `).move(0, offset);
-    }
-    const bg = polygon(opt.section.overallWidth).fill('#aaa');
-
-    const pd = polygon(opt.section.width + opt.section.padding * 2).fill('#000');
-
-    const rail = polygon(opt.section.width).fill('#fff');
-
-    group.gridMove = fn.gridMove;
-    return group;
-}
-
 var s1 = createSection(2);
+var s2 = createSection(1);
 s1.gridMove(1, 1);
-var c1 = createCorner3();
+
+s2.gridMove(3, 2);
+s2.rotate(90);
+var c1 = createCorner();
 c1.gridMove(3, 1);
 
 
