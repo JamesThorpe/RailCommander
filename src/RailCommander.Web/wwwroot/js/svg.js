@@ -10,8 +10,13 @@
 
 
 const fn = {
-    gridMove: function (x, y) {
-        return this.move((x-1) * consts.grid, ((y-1) * consts.grid) + ((consts.grid - consts.section.width) / 2));
+    gridMove: function(ox, oy) {
+        return function(x, y) {
+            return this.move(
+                ((x - 1) * consts.grid) + ox,
+                ((y - 1) * consts.grid) + oy
+            );
+        }
     }
 }
 
@@ -26,22 +31,37 @@ var gridPattern = svg.pattern(consts.grid * 2, consts.grid * 2, function (a) {
 svg.rect("100%", "100%").fill(gridPattern);
 
 
-function createStraight(length) {
+function createStraight(length, vertical) {
     const group = svg.group();
 
     function polygon(width) {
-        const p = group.polygon(`
-            0 0
-            ${length * consts.grid} 0
-            ${length * consts.grid} ${width}
-            0 ${width}
-        `);
-        p.move(0, (consts.grid - width) / 2);
-        return p;
+        if (vertical) {
+            const p = group.polygon(`
+                0 0
+                0 ${length * consts.grid}
+                ${width} ${length * consts.grid}
+                ${width} 0
+            `);
+            p.move((consts.grid - width) / 2, 0);
+            return p;
+        } else {
+            const p = group.polygon(`
+                0 0
+                ${length * consts.grid} 0
+                ${length * consts.grid} ${width}
+                0 ${width}
+            `);
+            p.move(0, (consts.grid - width) / 2);
+            return p;
+        }
     }
 
-    var rail = polygon(consts.section.width).fill(consts.colours.rail);
-    group.gridMove = fn.gridMove;
+    const rail = polygon(consts.section.width).fill(consts.colours.rail);
+    if (vertical) {
+        group.gridMove = fn.gridMove((consts.grid - consts.section.width) / 2, 0);
+    } else {
+        group.gridMove = fn.gridMove(0, (consts.grid - consts.section.width) / 2);
+    }
     return group;
 }
 
@@ -49,28 +69,36 @@ function createStraightLeft(length) {
     const group = svg.group();
 
     function polygon(width) {
-        let x1 = ((length - 1) * consts.grid) - ((width / 2) * Math.tan(Math.PI / 8));
-        let x2 = ((consts.grid - width) / 2) + x1;
         let y = ((consts.grid - width) / 2);
+
+        let diff = (width / 2) * Math.cos(Math.PI / 4);
+
+        let x1 = consts.grid - (y + diff*2);
+
+        let x2 = consts.grid - diff;
+        let y2 = -diff;
+        let x3 = consts.grid + diff;
+        let y3 = diff;
+        let x4 = consts.grid + diff - (y + width - diff);
+
         return group.polygon(`
             0 ${y}
             ${x1} ${y}
-            ${x2} 0
-            ${x2 + width} 0
-            ${x2 + width} ${consts.grid - y}
-            0 ${width}
-        `).transform({
-            origin: { x: 0, y: y }
-        });
+            ${x2} ${y2}
+            ${x3} ${y3}
+            ${x4} ${consts.grid - y}
+            0 ${y+width}
+        `);
     }
 
     var rail = polygon(consts.section.width).fill(consts.colours.rail);
 
-    group.gridMove = fn.gridMove;
+    var offset = (consts.section.width / 2) * Math.cos(Math.PI / 4);
+    group.gridMove = fn.gridMove(0, -offset);
     return group;
 }
 
 
-
-let s1 = createStraight(2).gridMove(1, 1);
-let s2 = createStraightLeft(2).gridMove(1, 2);
+let s1 = createStraight(2).gridMove(2, 2);
+let s2 = createStraightLeft(2).gridMove(4, 2);
+let s3 = createStraight(2, true).gridMove(5, 1);
