@@ -38,6 +38,8 @@ Vue.createApp({
     }
 }).mount('#app');
 
+/*
+
 const opt = {
     section: {
         width: 8,
@@ -111,6 +113,7 @@ s2.rotate(90);
 var c1 = createCorner();
 c1.gridMove(3, 1);
 
+*/
 
 /*
 
