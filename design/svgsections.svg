@@ -17,7 +17,28 @@
    inkscape:version="0.92.1 r15371"
    sodipodi:docname="svgsections.svg">
   <defs
-     id="defs2" />
+     id="defs2">
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect4534"
+       is_visible="true"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect4530"
+       is_visible="true"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
+  </defs>
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -26,8 +47,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="22.4"
-     inkscape:cx="118.3367"
-     inkscape:cy="15.968968"
+     inkscape:cx="112.0841"
+     inkscape:cy="17.079546"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -260,7 +281,7 @@
        y="851.62354"
        transform="rotate(-45)" />
     <g
-       transform="translate(-15.514719,15.51468)"
+       transform="translate(24.242641,-0.2426798)"
        id="g4596-8">
       <rect
          transform="rotate(-45)"
@@ -288,7 +309,7 @@
          style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.26725295;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     </g>
     <g
-       transform="rotate(-90,107.99998,1110.5197)"
+       transform="rotate(-135,110.48527,1109.4902)"
        id="g4596-9">
       <rect
          transform="rotate(-45)"
