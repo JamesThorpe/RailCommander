@@ -13,30 +13,19 @@
 };
 
 
-const fn = {
-    gridMove: function (x, y, rotate) {
-        if (!rotate) rotate = 0;
-        return this.transform({
-                origin: [consts.grid / 2, consts.grid / 2],
-                rotate: rotate,
-                translate: [
-                    ((x - 1) * consts.grid),
-                    ((y - 1) * consts.grid)
-                ]
-            }
-        );
-    }
-}
-
 var svg = SVG().addTo('#svg').size(800, 500);
-var gridPattern = svg.pattern(consts.grid * 2, consts.grid * 2, function (a) {
+var filledGridPattern = svg.pattern(consts.grid * 2, consts.grid * 2, function (a) {
     a.rect(consts.grid, consts.grid).fill('#050');
     a.rect(consts.grid, consts.grid).fill('#060').move(0, consts.grid);
     a.rect(consts.grid, consts.grid).fill('#050').move(consts.grid, consts.grid);
     a.rect(consts.grid, consts.grid).fill('#060').move(consts.grid, 0);
 });
+var gridPattern = svg.pattern(consts.grid, consts.grid, function (a) {
+    a.rect(1, consts.grid).fill('#000');
+    a.rect(consts.grid, 1).fill('#000').move(0, consts.grid-2);
+});
 
-//svg.rect("100%", "100%").fill(gridPattern);
+svg.rect("100%", "100%").fill(gridPattern);
 
 
 function createStraight(includeFiller, width, colour) {
