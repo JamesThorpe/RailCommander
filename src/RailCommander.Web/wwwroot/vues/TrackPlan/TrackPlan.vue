@@ -1,18 +1,21 @@
 ﻿<template>
     <svg width="900" height="400" viewBox="0 0 900 400" xmlns="http://www.w3.org/2000/svg">
-        <g v-for="section in LayoutSections" v-bind:transform="'translate(' + (section.x * 32) + ',' + (section.y*32) + ') rotate(' + section.angle + ' 16 16)'" :stroke="getSectionColour(section.state)" stroke-width="10">
-            <track-straight v-if="section.type === 'straight'"></track-straight>
-            <track-curve-left v-if="section.type === 'curve-left'"></track-curve-left>
+        <g v-for="section in LayoutSections" stroke="#00f" stroke-width="20">
+            <track-section :section="section" :trackState="false"></track-section>
+        </g>
+        <g v-for="section in LayoutSections" stroke="#fff" stroke-width="16">
+            <track-section :section="section" :trackState="false"></track-section>
+        </g>
+        <g v-for="section in LayoutSections" :stroke="getSectionColour(section.state)" stroke-width="10">
+            <track-section :section="section" :trackState="true"></track-section>
         </g>
     </svg>
 </template>
 <script>
-    import Straight from '/vues/TrackPlan/Straight.vue'
-    import CurveLeft from '/vues/TrackPlan/CurveLeft.vue'
+    import Track from '/vues/TrackPlan/Track.vue'
     module.exports = {
         components: {
-            'track-straight': Straight,
-            'track-curve-left': CurveLeft
+            'track-section': Track
         },
         methods: {
             getSectionColour: function (sectionState) {
