@@ -1,13 +1,13 @@
 ﻿<template>
     <svg width="900" height="400" viewBox="0 0 900 400" xmlns="http://www.w3.org/2000/svg">
-        <g v-for="section in LayoutSections" stroke="#00f" stroke-width="20">
-            <track-section :section="section" :trackState="false"></track-section>
+        <g v-for="block in Blocks" stroke="#00f" stroke-width="20">
+            <track-section v-for="section in block.trackSections" :section="section" :trackState="false"></track-section>
         </g>
-        <g v-for="section in LayoutSections" stroke="#fff" stroke-width="16">
-            <track-section :section="section" :trackState="false"></track-section>
+        <g v-for="block in Blocks" stroke="#fff" stroke-width="16">
+            <track-section v-for="section in block.trackSections" :section="section" :trackState="false"></track-section>
         </g>
-        <g v-for="section in LayoutSections" :stroke="getSectionColour(section.state)" stroke-width="10">
-            <track-section :section="section" :trackState="true"></track-section>
+        <g v-for="block in Blocks" :stroke="getSectionColour(block.state)" stroke-width="10">
+            <track-section v-for="section in block.trackSections" :section="section" :trackState="true"></track-section>
         </g>
     </svg>
 </template>
@@ -23,12 +23,12 @@
                     case "unreserved":
                         return "#000";
                     case "reserved":
-                        return "#ff0";
+                        return "#e0b509";
                     case "occupied":
-                        return "#f00";
+                        return "#a10a0a";
                 }
             }
         },
-        props: ['LayoutSections']
+        props: ['Blocks']
     }
 </script>
