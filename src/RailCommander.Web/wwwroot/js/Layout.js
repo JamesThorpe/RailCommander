@@ -1,43 +1,8 @@
 ﻿"use strict";
 
-class trackSection {
-    constructor(type, x, y, angle) {
-        this.type = type;
-        this.x = x;
-        this.y = y;
-        this.angle = angle;
-    }
-}
+import { trackStraight, trackCurveLeft, trackTurnoutLeft } from "./LayoutItems/TrackSections.js"
+import trackSignal from "./LayoutItems/Signal.js"
 
-class trackStraight extends trackSection {
-    constructor(x, y, angle) {
-        super("straight", x, y, angle);
-    }
-}
-
-class trackCurveLeft extends trackSection {
-    constructor(x, y, angle) {
-        super("curve-left", x, y, angle);
-    }
-}
-
-class trackTurnoutLeft extends trackSection {
-    constructor(x, y, angle, position) {
-        super("turnout-left", x, y, angle);
-        this.position = position;
-    }
-
-    clicked() {
-        this.position = this.position === "normal" ? "reverse" : "normal";
-    }
-}
-class trackSignal extends trackSection {
-    constructor(x, y, angle, aspect) {
-        super("signal", x, y, angle);
-
-        this.aspect = aspect;
-    }
-}
 class trackBlock {
     constructor(state) {
         this.trackSections = [];
