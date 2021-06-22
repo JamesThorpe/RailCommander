@@ -54,27 +54,33 @@ namespace RailCommander.Web
 
             var buffer = new byte[BufferSize];
             var msg = new StringBuilder();
-            var result = await ws.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-            while (!result.CloseStatus.HasValue) {
-                msg.Append(Encoding.UTF8.GetString(buffer, 0, result.Count));
-                if (result.EndOfMessage) {
-                    //TODO: error handling
+            try {
+                var result = await ws.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+                while (!result.CloseStatus.HasValue) {
+                    msg.Append(Encoding.UTF8.GetString(buffer, 0, result.Count));
+                    if (result.EndOfMessage) {
+                        //TODO: error handling
 
-                    //TODO: deserialiser/parser supports utf8 byte string input - ie no need for string builder
-                    var m = JsonDocument.Parse(msg.ToString());
-                    if (m.RootElement.TryGetProperty("type", out var type)) {
-                        var handler = _handlerFactory(type.GetString());
-                        await handler.ProcessMessage(ws, m);
+                        //TODO: deserialiser/parser supports utf8 byte string input - ie no need for string builder
+                        var m = JsonDocument.Parse(msg.ToString());
+                        if (m.RootElement.TryGetProperty("type", out var type)) {
+                            var handler = _handlerFactory(type.GetString());
+                            await handler.ProcessMessage(ws, m);
+                        }
+
+                        //TODO: add version?
+                        await SendMessage(ws, new ConsoleLogSocketMessage(LogLevel.Information, "Connected to RailCommander"));
+
+                        msg.Clear();
                     }
 
-                    //TODO: add version?
-                    await SendMessage(ws, new ConsoleLogSocketMessage(LogLevel.Information,"Connected to RailCommander"));
-
-                    msg.Clear();
+                    result = await ws.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
                 }
-                result = await ws.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+
+                await ws.CloseAsync(result.CloseStatus.Value, result.CloseStatusDescription, CancellationToken.None);
+            } catch (WebSocketException) {
+                //TODO: log, recover
             }
-            await ws.CloseAsync(result.CloseStatus.Value, result.CloseStatusDescription, CancellationToken.None);
 
             lock (_socketLock) {
                 _sockets.Remove(ws);

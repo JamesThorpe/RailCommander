@@ -1,39 +1,59 @@
 ﻿"use strict";
 
-function trackPiece(type, x, y, angle, state) {
-    this.type = type;
-    this.x = x;
-    this.y = y;
-    this.angle = angle;
-    this.state = state;
+class trackSection {
+    constructor(type, x, y, angle, state) {
+        this.type = type;
+        this.x = x;
+        this.y = y;
+        this.angle = angle;
+        this.state = state;
+    }
+}
+
+class trackStraight extends trackSection {
+    constructor(x, y, angle, state) {
+        super("straight", x, y, angle, state);
+    }
+}
+
+class trackCurveLeft extends trackSection {
+    constructor(x, y, angle, state) {
+        super("curve-left", x, y, angle, state);
+    }
+}
+
+class trackTurnoutLeft extends trackSection {
+    constructor(x, y, angle, state, position) {
+        super("turnout-left", x, y, angle, state);
+        this.position = position;
+    }
+
+    clicked() {
+        this.position = this.position === "normal" ? "reverse" : "normal";
+    }
+}
+
+class trackBlock {
+    constructor() {
+        this.trackSections = [];
+    }
+    addTrackSection(section) {
+        this.trackSections.push(section);
+    }
 }
 
 const layout = Vue.reactive({
-    trackSections: [],
-    addTrackSection(type, x, y, angle, state) {
-        var section = { type: type, x: x, y: y, angle: angle, state: state };
-        this.trackSections.push(section);
-        return section;
-    }
+    trackSections: []
 });
 
-layout.addTrackSection("straight", 1, 1, 0, "unreserved");
-layout.addTrackSection("straight", 2, 1, 0, "reserved");
-layout.addTrackSection("straight", 3, 1, 0, "occupied");
-layout.addTrackSection("curve-left", 5, 0, 180, "unreserved");
-var ts = layout.addTrackSection("turnout-left", 4, 1, 0, "unreserved");
-ts.position = "reverse";
-
-ts.clicked = function() {
-    if (this.position === "normal") {
-        this.position = "reverse";
-    } else {
-        this.position = "normal";
-    }
-}
+layout.trackSections.push(new trackStraight(1, 1, 0, "unreserved"));
+layout.trackSections.push(new trackStraight(2, 1, 0, "reserved"));
+layout.trackSections.push(new trackStraight(3, 1, 0, "occupied"));
+layout.trackSections.push(new trackCurveLeft(5, 0, 180, "unreserved"));
+layout.trackSections.push(new trackStraight(5, 1, 0, "unreserved"));
+layout.trackSections.push(new trackTurnoutLeft(4, 1, 0, "unreserved", "normal"));
 
 
-layout.addTrackSection("straight", 5, 1, 0, "unreserved");
 
 window.setInterval(function() {
     if (layout.trackSections[1].state === "occupied") {
