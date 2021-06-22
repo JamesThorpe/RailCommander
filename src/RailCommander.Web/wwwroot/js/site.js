@@ -14,7 +14,7 @@ const options = {
 
     async getFile(url) {
 
-        const res = await fetch(url);
+        const res = await fetch(url, {cache:"reload"});
         if (!res.ok)
             throw Object.assign(new Error(url + ' ' + res.statusText), { res });
         return await res.text();
@@ -32,12 +32,12 @@ Vue.createApp({
     
     data: function() {
         return {
-            Blocks: layout.trackBlocks
+            Layout: layout
         }
     },
     
     components: {
         'trackplan': Vue.defineAsyncComponent(() => loadModule('/vues/TrackPlan/TrackPlan.vue', options))
     },
-    template:'<trackplan :Blocks="Blocks"></trackplan>'
+    template:'<trackplan :Layout="Layout"></trackplan>'
 }).mount('#app');

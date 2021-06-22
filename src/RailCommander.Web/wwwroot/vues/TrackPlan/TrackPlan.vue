@@ -1,13 +1,17 @@
 ﻿<template>
     <svg width="900" height="400" viewBox="0 0 900 400" xmlns="http://www.w3.org/2000/svg">
-        <g v-for="block in Blocks" stroke="#00f" stroke-width="20">
-            <track-section v-for="section in block.trackSections" :section="section" :trackState="false"></track-section>
+        <g v-for="block in Layout.TrackBlocks" stroke="#888" stroke-width="14">
+            <track-section v-for="section in block.trackSections" :section="section" :trackState="false" :single="false"></track-section>
         </g>
-        <g v-for="block in Blocks" stroke="#fff" stroke-width="16">
-            <track-section v-for="section in block.trackSections" :section="section" :trackState="false"></track-section>
+        <g v-for="block in Layout.TrackBlocks" stroke="#fff" stroke-width="10">
+            <track-section v-for="section in block.trackSections" :section="section" :trackState="false" :single="false"></track-section>
         </g>
-        <g v-for="block in Blocks" :stroke="getSectionColour(block.state)" stroke-width="10">
-            <track-section v-for="section in block.trackSections" :section="section" :trackState="true"></track-section>
+        <g v-for="block in Layout.TrackBlocks" :stroke="getSectionColour(block.state)" stroke-width="5">
+            <track-section v-for="section in block.trackSections" :section="section" :trackState="true" :single="false"></track-section>
+        </g>
+
+        <g v-for="signal in Layout.Signals">
+            <track-section :section="signal" :single="true"></track-section>
         </g>
     </svg>
 </template>
@@ -29,6 +33,6 @@
                 }
             }
         },
-        props: ['Blocks']
+        props: ['Layout']
     }
 </script>
