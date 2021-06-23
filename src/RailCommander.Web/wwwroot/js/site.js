@@ -32,12 +32,12 @@ Vue.createApp({
     
     data: function() {
         return {
-            Layout: layout
+            layout
         }
     },
     
     components: {
         'trackplan': Vue.defineAsyncComponent(() => loadModule('/vues/TrackPlan/TrackPlan.vue', options))
     },
-    template:'<trackplan :Layout="Layout"></trackplan>'
+    template:'<trackplan :layout="layout"></trackplan>'
 }).mount('#app');

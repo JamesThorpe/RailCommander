@@ -1,6 +1,6 @@
 ﻿"use strict";
 
-class layoutItem {
+class LayoutItem {
     constructor(type, x, y, angle) {
         this.type = type;
         this.x = x;
@@ -12,4 +12,4 @@ class layoutItem {
     }
 }
 
-export default layoutItem;
+export default LayoutItem;

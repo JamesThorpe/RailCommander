@@ -1,9 +1,9 @@
 ﻿"use strict";
 
-import layoutItem from "./LayoutItem.js"
+import LayoutItem from "./LayoutItem.js"
 
 
-class trackSignal extends layoutItem {
+class TrackSignal extends LayoutItem {
     constructor(x, y, angle, aspect) {
         super("signal", x, y, angle);
 
@@ -11,4 +11,4 @@ class trackSignal extends layoutItem {
     }
 }
 
-export default trackSignal;
+export default TrackSignal;

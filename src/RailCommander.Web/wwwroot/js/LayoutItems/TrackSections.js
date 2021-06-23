@@ -1,20 +1,20 @@
 ﻿"use strict";
 
-import layoutItem from "./LayoutItem.js"
+import LayoutItem from "./LayoutItem.js"
 
-class trackStraight extends layoutItem {
+class TrackStraight extends LayoutItem {
     constructor(x, y, angle) {
         super("straight", x, y, angle);
     }
 }
 
-class trackCurveLeft extends layoutItem {
+class TrackCurveLeft extends LayoutItem {
     constructor(x, y, angle) {
         super("curve-left", x, y, angle);
     }
 }
 
-class trackTurnoutLeft extends layoutItem {
+class TrackTurnoutLeft extends LayoutItem {
     constructor(x, y, angle, position) {
         super("turnout-left", x, y, angle);
         this.position = position;
@@ -25,4 +25,4 @@ class trackTurnoutLeft extends layoutItem {
     }
 }
 
-export {trackStraight, trackCurveLeft, trackTurnoutLeft};
+export {TrackStraight, TrackCurveLeft, TrackTurnoutLeft};
