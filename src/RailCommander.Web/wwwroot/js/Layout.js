@@ -2,6 +2,8 @@
 
 import { TrackStraight, TrackCurveLeft, TrackTurnoutLeft } from "./LayoutItems/TrackSections.js"
 import TrackSignal from "./LayoutItems/Signal.js"
+import GridHighlight from "./LayoutItems/GridHighlight.js"
+
 
 class TrackBlock {
     constructor(state) {
@@ -13,15 +15,31 @@ class TrackBlock {
     }
 }
 
+const gridHighlight = Vue.reactive(new GridHighlight(0, 0));
+
 const layout = Vue.reactive({
     trackBlocks: [],
     signals: [],
+    meta: [],
     createTrackBlock: function(state) {
         const tb = Vue.reactive(new TrackBlock(state));
         this.trackBlocks.push(tb);
         return tb;
+    },
+    mousemove: function(e) {
+        let x = parseInt(e.offsetX / 32);
+        let y = parseInt(e.offsetY / 32);
+
+        gridHighlight.x = x;
+        gridHighlight.y = y;
+    },
+    mouseleave: function(e) {
+        gridHighlight.x = 0;
+        gridHighlight.y = 0;
     }
 });
+
+layout.meta.push(gridHighlight);
 
 var tb1 = layout.createTrackBlock("unreserved");
 tb1.addTrackSection(new TrackStraight(1, 1, 0));

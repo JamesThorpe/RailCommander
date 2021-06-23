@@ -4,6 +4,7 @@
         <track-curve-left v-if="section.type === 'curve-left'"></track-curve-left>
         <track-turnout-left v-if="section.type === 'turnout-left'" :position="section.position" :trackState="trackState"></track-turnout-left>
         <track-signal v-if="section.type === 'signal'" :aspect="section.aspect"></track-signal>
+        <grid-highlight v-if="section.type === 'grid-highlight'"></grid-highlight>
     </g>
 </template>
 <script>
@@ -11,13 +12,14 @@
     import CurveLeft from '/vues/TrackPlan/CurveLeft.vue'
     import TurnoutLeft from '/vues/TrackPlan/TurnoutLeft.vue'
     import Signal from '/vues/TrackPlan/Signal.vue'
-
+    import GridHighlight from '/vues/TrackPlan/GridHighlight.vue'
     module.exports = {
         components: {
             'track-straight': Straight,
             'track-curve-left': CurveLeft,
             'track-turnout-left': TurnoutLeft,
-            'track-signal': Signal
+            'track-signal': Signal,
+            'grid-highlight': GridHighlight
         },
         props: ['section', 'trackState'],
         methods: {
