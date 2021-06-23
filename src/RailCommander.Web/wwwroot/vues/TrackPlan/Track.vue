@@ -1,9 +1,9 @@
 ﻿<template>
     <g @click="click" v-bind:transform="'translate(' + (section.x * 32) + ',' + (section.y*32) + ') rotate(' + section.angle + ' 16 16)'">
-        <track-straight v-if="section.type === 'straight' && !single"></track-straight>
-        <track-curve-left v-if="section.type === 'curve-left' && !single"></track-curve-left>
-        <track-turnout-left v-if="section.type === 'turnout-left' && !single" :position="section.position" :trackState="trackState"></track-turnout-left>
-        <track-signal v-if="section.type === 'signal' && single" :aspect="section.aspect"></track-signal>
+        <track-straight v-if="section.type === 'straight'"></track-straight>
+        <track-curve-left v-if="section.type === 'curve-left'"></track-curve-left>
+        <track-turnout-left v-if="section.type === 'turnout-left'" :position="section.position" :trackState="trackState"></track-turnout-left>
+        <track-signal v-if="section.type === 'signal'" :aspect="section.aspect"></track-signal>
     </g>
 </template>
 <script>
@@ -19,7 +19,7 @@
             'track-turnout-left': TurnoutLeft,
             'track-signal': Signal
         },
-        props: ['section', 'trackState', 'single'],
+        props: ['section', 'trackState'],
         methods: {
             click: function () {
                 this.section.clicked();
