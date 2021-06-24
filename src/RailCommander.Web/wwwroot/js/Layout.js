@@ -15,13 +15,16 @@ class TrackBlock {
     }
 }
 
-const gridHighlight = Vue.reactive(new GridHighlight(0, 0));
+let layout;
+const gridHighlight = Vue.reactive(new GridHighlight(-1, -1, function(x, y) {
+    layout.removeElementAt(x, y);
+}));
 
-const layout = Vue.reactive({
+layout = Vue.reactive({
     trackBlocks: [],
     signals: [],
     meta: [],
-    highlightActive: false,
+    highlightActive: true,
     createTrackBlock: function(state) {
         const tb = Vue.reactive(new TrackBlock(state));
         this.trackBlocks.push(tb);
@@ -37,8 +40,19 @@ const layout = Vue.reactive({
         }
     },
     mouseleave: function(e) {
-        gridHighlight.x = 0;
-        gridHighlight.y = 0;
+        gridHighlight.x = -1;
+        gridHighlight.y = -1;
+    },
+    removeElementAt: function(x, y) {
+        for (let b of this.trackBlocks) {
+            for (let si = 0; si < b.trackSections.length; si++) {
+                const s = b.trackSections[si];
+                if (s.x === x && s.y === y) {
+                    b.trackSections.splice(si, 1);
+                    break;
+                }
+            }
+        }
     },
     load: function(layoutData) {
         for(let b of layoutData.blocks) {
