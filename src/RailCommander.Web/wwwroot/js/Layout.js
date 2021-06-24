@@ -39,39 +39,77 @@ const layout = Vue.reactive({
     mouseleave: function(e) {
         gridHighlight.x = 0;
         gridHighlight.y = 0;
+    },
+    load: function(layoutData) {
+        for(let b of layoutData.blocks) {
+            const block = new TrackBlock("unreserved");
+            for (let s of b.sections) {
+                switch(s.type) {
+                    case 'straight':
+                        block.addTrackSection(new TrackStraight(s.x, s.y, s.angle !== undefined ? s.angle : 0));
+                        break;
+                    case 'curve-left':
+                        block.addTrackSection(new TrackCurveLeft(s.x, s.y, s.angle !== undefined ? s.angle : 0));
+                        break;
+                    case 'curve-right':
+                        block.addTrackSection(new TrackCurveRight(s.x, s.y, s.angle !== undefined ? s.angle : 0));
+                        break;
+                    case 'turnout-left':
+                        block.addTrackSection(new TrackTurnoutLeft(s.x, s.y, s.angle !== undefined ? s.angle : 0, "normal"));
+                        break;
+                    case 'turnout-right':
+                        block.addTrackSection(new TrackTurnoutRight(s.x, s.y, s.angle !== undefined ? s.angle : 0, "normal"));
+                        break;
+                }
+            }
+            layout.trackBlocks.push(block);
+        }
     }
 });
 
 layout.meta.push(gridHighlight);
 
-var tb1 = layout.createTrackBlock("unreserved");
-tb1.addTrackSection(new TrackStraight(1, 1, 0));
-tb1.addTrackSection(new TrackStraight(2, 1, 0));
-tb1.addTrackSection(new TrackTurnoutRight(3, 1, 0, "reverse"));
-tb1.addTrackSection(new TrackTurnoutLeft(4, 1, 0, "normal"));
-tb1.addTrackSection(new TrackStraight(4, 2, 45));
-tb1.addTrackSection(new TrackCurveRight(5, 3, 180));
-
-var tb2 = layout.createTrackBlock("unreserved");
-tb2.addTrackSection(new TrackCurveLeft(5, 0, 180));
-
-var tb3 = layout.createTrackBlock("occupied");
-tb3.addTrackSection(new TrackStraight(5, 1, 0));
-tb3.addTrackSection(new TrackCurveRight(6, 1, 0));
-tb3.addTrackSection(new TrackCurveRight(7, 2, 180));
-
-layout.signals.push(new TrackSignal(5, 1, 0, "danger"));
-layout.signals.push(new TrackSignal(1, 1, 180, "caution"));
-
-
-window.setInterval(function () {
-    if (tb1.state === "occupied") {
-        tb1.state = "reserved";
-    } else {
-        tb1.state = "occupied";
-    }
-},
-1000);
-
+layout.load({
+    blocks: [
+        {
+            id: 1,
+            sections: [
+                {
+                    type: 'straight',
+                    x: 1,
+                    y: 1
+                }, {
+                    type: 'straight',
+                    x: 2,
+                    y: 1
+                }, {
+                    type: 'curve-right',
+                    x: 3,
+                    y: 1
+                }, {
+                    type: 'curve-left',
+                    x: 4,
+                    y: 2,
+                    angle: 270
+                }, {
+                    type: 'turnout-left',
+                    x: 4,
+                    y: 3,
+                    angle: 270
+                }, {
+                    type: 'turnout-right',
+                    x: 4,
+                    y: 4,
+                    angle: 90
+                }, {
+                    type: 'straight',
+                    x: 3,
+                    y: 5,
+                    angle: 135
+                }
+            ]
+        }
+    ]
+});
 
 export default layout;
