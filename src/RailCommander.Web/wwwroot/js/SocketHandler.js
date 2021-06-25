@@ -1,6 +1,10 @@
 ﻿"use strict";
 
-const socketHandlers = {};
+import consoleLog from "./socket-console-logger.js";
+
+const socketHandlers = {
+    log: consoleLog
+};
 
 function openSocket() {
     var ws = new WebSocket("ws://" + window.location.host + "/ws");
@@ -24,6 +28,5 @@ function openSocket() {
 
 
 export default { 
-    open: openSocket,
-    handlers: socketHandlers
+    open: openSocket
 };
