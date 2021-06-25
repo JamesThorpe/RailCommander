@@ -10,7 +10,7 @@
     import TrackPlan from "./TrackPlan/TrackPlan.vue"
     
 
-    module.exports = {
+    export default {
         components: {
             "track-plan": TrackPlan
         },
