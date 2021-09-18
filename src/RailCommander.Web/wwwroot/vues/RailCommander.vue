@@ -7,16 +7,17 @@
 <script>
     "use strict";
 
+    import Socket from "/js/SocketHandler.js"
     import TrackPlan from "./TrackPlan/TrackPlan.vue"
-    
+    import Api from "/js/api.js"
 
     export default {
         components: {
             "track-plan": TrackPlan
         },
-        props: ['socket'],
-        mounted: function () {
-            this.socket.open();
+        mounted: async function () {
+            Socket.open();
+            console.log(await Api.loadLayoutAsync());
         }
     }
 </script>
