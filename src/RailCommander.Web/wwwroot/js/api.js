@@ -7,19 +7,23 @@ export default {
             blocks: [
                 {
                     id: 1,
+                    state: 'unreserved',
                     sections: [
                         {
                             type: 'straight',
                             x: 1,
-                            y: 1
+                            y: 1,
+                            angle: 0,
                         }, {
                             type: 'straight',
                             x: 2,
-                            y: 1
+                            y: 1,
+                            angle: 0
                         }, {
                             type: 'curve-right',
                             x: 3,
-                            y: 1
+                            y: 1,
+                            angle: 0
                         }, {
                             type: 'curve-left',
                             x: 4,

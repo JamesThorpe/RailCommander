@@ -1,7 +1,7 @@
 ﻿<template>
     <h1>Rail Commander</h1>
 
-    <track-plan />
+    <track-plan :layout="layout" />
 </template>
 
 <script>
@@ -15,9 +15,16 @@
         components: {
             "track-plan": TrackPlan
         },
+        data () {
+            return {
+                layout: {
+                    
+                }
+            }
+        },
         mounted: async function () {
             Socket.open();
-            console.log(await Api.loadLayoutAsync());
+            this.layout = await Api.loadLayoutAsync();
         }
     }
 </script>
