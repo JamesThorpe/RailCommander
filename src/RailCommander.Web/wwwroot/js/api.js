@@ -3,7 +3,7 @@
 
 export default {
     loadLayoutAsync: async () => {
-        return {
+        var layout = {
             blocks: [
                 {
                     id: 1,
@@ -11,43 +11,236 @@ export default {
                     sections: [
                         {
                             type: 'straight',
-                            x: 1,
-                            y: 1,
-                            angle: 0,
-                        }, {
-                            type: 'straight',
-                            x: 2,
-                            y: 1,
+                            x: 5,
+                            y: 5,
                             angle: 0
                         }, {
-                            type: 'curve-right',
-                            x: 3,
-                            y: 1,
+                            type: 'straight',
+                            x: 5,
+                            y: 6,
+                            angle: 0
+                        }, {
+                            type: 'turnout-left',
+                            x: 6,
+                            y: 5,
+                            angle: 0,
+                            position: 'normal'
+                        }, {
+                            type: 'turnout-right',
+                            x: 6,
+                            y: 6,
+                            angle: 0,
+                            position: 'normal'
+                        }, {
+                            type: 'straight',
+                            x: 7,
+                            y: 5,
                             angle: 0
                         }, {
                             type: 'curve-left',
-                            x: 4,
-                            y: 2,
-                            angle: 270
+                            x: 7,
+                            y: 6,
+                            angle: 0
                         }, {
                             type: 'turnout-left',
-                            x: 4,
-                            y: 3,
-                            angle: 270
-                        }, {
-                            type: 'turnout-right',
-                            x: 4,
-                            y: 4,
-                            angle: 90
+                            x: 8,
+                            y: 5,
+                            angle: 180,
+                            position: 'normal'
                         }, {
                             type: 'straight',
-                            x: 3,
+                            x: 9,
                             y: 5,
-                            angle: 135
+                            angle: 0
+                        }, {
+                            type: 'straight',
+                            x: 10,
+                            y: 5,
+                            angle: 0
+                        }, {
+                            type: 'straight',
+                            x: 11,
+                            y: 5,
+                            angle: 0
+                        }, {
+                            type: 'straight',
+                            x: 12,
+                            y: 5,
+                            angle: 0
+                        }, {
+                            type: 'turnout-right',
+                            x: 7,
+                            y: 4,
+                            angle: -45,
+                            position: 'normal'
+                        }, {
+                            type: 'curve-left',
+                            x: 8,
+                            y: 3,
+                            angle: 180
+                        }, {
+                            type: 'straight',
+                            x: 8,
+                            y: 4,
+                            angle: 0
+                        }, {
+                            type: 'turnout-left',
+                            x: 7,
+                            y: 7,
+                            angle: 45,
+                            position: 'normal'
+                        }, {
+                            type: 'curve-right',
+                            x: 8,
+                            y: 8,
+                            angle: 180
+                        }, {
+                            type: 'straight',
+                            x: 8,
+                            y: 7,
+                            angle: 0
+                        }, {
+                            type: 'straight',
+                            x: 9,
+                            y: 3,
+                            angle: 0
+                        }, {
+                            type: 'straight',
+                            x: 9,
+                            y: 4,
+                            angle: 0
+                        }, {
+                            type: 'straight',
+                            x: 9,
+                            y: 7,
+                            angle: 0
+                        }, {
+                            type: 'straight',
+                            x: 9,
+                            y: 8,
+                            angle: 0
+                        }, {
+                            type: 'straight',
+                            x: 10,
+                            y: 3,
+                            angle: 0
+                        }, {
+                            type: 'straight',
+                            x: 10,
+                            y: 4,
+                            angle: 0
+                        }, {
+                            type: 'straight',
+                            x: 10,
+                            y: 7,
+                            angle: 0
+                        }, {
+                            type: 'straight',
+                            x: 10,
+                            y: 8,
+                            angle: 0
+                        }, {
+                            type: 'straight',
+                            x: 11,
+                            y: 3,
+                            angle: 0
+                        }, {
+                            type: 'straight',
+                            x: 11,
+                            y: 4,
+                            angle: 0
+                        }, {
+                            type: 'straight',
+                            x: 11,
+                            y: 7,
+                            angle: 0
+                        }, {
+                            type: 'straight',
+                            x: 11,
+                            y: 8,
+                            angle: 0
+                        }, {
+                            type: 'straight',
+                            x: 12,
+                            y: 3,
+                            angle: 0
+                        }, {
+                            type: 'straight',
+                            x: 12,
+                            y: 4,
+                            angle: 0
+                        }, {
+                            type: 'straight',
+                            x: 12,
+                            y: 7,
+                            angle: 0
+                        }, {
+                            type: 'straight',
+                            x: 12,
+                            y: 8,
+                            angle: 0
+                        }, {
+                            type: 'curve-right',
+                            x: 13,
+                            y: 4,
+                            angle: 0
+                        }, {
+                            type: 'curve-left',
+                            x: 14,
+                            y: 5,
+                            angle: 270
+                        }, {
+                            type: 'curve-left',
+                            x: 13,
+                            y: 7,
+                            angle: 0
+                        }, {
+                            type: 'curve-right',
+                            x: 14,
+                            y: 6,
+                            angle: 90
+                        }, {
+                            type: 'curve-right',
+                            x: 13,
+                            y: 3,
+                            angle: 0
+                        }, {
+                            type: 'straight',
+                            x: 14,
+                            y: 4,
+                            angle: 45
+                        }, {
+                            type: 'curve-left',
+                            x: 13,
+                            y: 8,
+                            angle: 0
+                        }, {
+                            type: 'straight',
+                            x: 14,
+                            y: 7,
+                            angle: -45
+                        }, {
+                            type: 'curve-right',
+                            x: 15,
+                            y: 6,
+                            angle: 90
+                        }, {
+                            type: 'curve-left',
+                            x: 15,
+                            y: 5,
+                            angle: -90
                         }
                     ]
                 }
             ]
         }
+        for (var s in layout.blocks[0].sections) {
+            layout.blocks[0].sections[s].clicked = function() {
+                if (this.type == 'turnout-left' || this.type == 'turnout-right') {
+                    this.position = this.position == 'normal' ? 'reverse' : 'normal';
+                }
+            }
+        }
+        return layout;
     }
 }

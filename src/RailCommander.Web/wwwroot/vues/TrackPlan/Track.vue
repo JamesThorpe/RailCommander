@@ -3,8 +3,8 @@
         <track-straight v-if="section.type === 'straight'" :extended="section.angle % 90 !== 0"></track-straight>
         <track-curve-left v-if="section.type === 'curve-left'"></track-curve-left>
         <track-curve-right v-if="section.type === 'curve-right'"></track-curve-right>
-        <track-turnout-left v-if="section.type === 'turnout-left'" :position="section.position" :trackState="trackState"></track-turnout-left>
-        <track-turnout-right v-if="section.type === 'turnout-right'" :position="section.position" :trackState="trackState"></track-turnout-right>
+        <track-turnout-left v-if="section.type === 'turnout-left'" :position="section.position" :trackState="trackState" :extended="section.angle % 90 !== 0"></track-turnout-left>
+        <track-turnout-right v-if="section.type === 'turnout-right'" :position="section.position" :trackState="trackState" :extended="section.angle % 90 !== 0"></track-turnout-right>
         <track-signal v-if="section.type === 'signal'" :aspect="section.aspect"></track-signal>
         <grid-highlight v-if="section.type === 'grid-highlight'"></grid-highlight>
     </g>

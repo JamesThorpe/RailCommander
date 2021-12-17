@@ -10,6 +10,7 @@
             <track-section v-for="section in block.sections" :section="section" :trackState="true"></track-section>
         </g>
     </svg>
+    <button @click="click">click</button>
 </template>
 <script>
     "use strict";
@@ -30,6 +31,8 @@
                     case "occupied":
                         return "#a10a0a";
                 }
+            }, click: function () {
+                console.log(this.layout);
             }
         },
         props: ['layout']
