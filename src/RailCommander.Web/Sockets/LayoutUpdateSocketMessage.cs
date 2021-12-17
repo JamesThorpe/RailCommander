@@ -14,4 +14,10 @@
         public string BlockId { get; set; }
         public string State { get;set; }
     }
+
+    public class TurnoutStateUpdateSocketMessage:LayoutUpdateSocketMessage
+    {
+        public string TurnoutId { get; set; }
+        public string TurnoutState { get; set; }
+    }
 }
