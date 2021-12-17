@@ -13,5 +13,12 @@ namespace RailCommander.Web
             var f = System.IO.File.ReadAllText("layout.json");
             return f;
         }
+
+        [HttpPost]
+        [Route("turnout")]
+        public void ToggleTurnout(TurnoutRequest request)
+        {
+
+        }
     }
 }
