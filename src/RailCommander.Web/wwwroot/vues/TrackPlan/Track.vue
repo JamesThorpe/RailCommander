@@ -28,8 +28,9 @@
             'grid-highlight': GridHighlight
         },
         props: ['section', 'trackState'],
+        emits:['click'],
         methods: {
-            click: function () {
+            click: function (e) {
                 this.section.clicked();
             }
         }

@@ -70,6 +70,24 @@ namespace RailCommander.Web
 
                         //TODO: add version?
                         await SendMessage(ws, new ConsoleLogSocketMessage(LogLevel.Information, "Connected to RailCommander"));
+                        
+                        _ = Task.Run(async () =>
+                        {
+                            var r = new Random();
+                            while (true)
+                            {
+                                await Task.Delay(2000);
+                                var i = r.Next(1, 6);
+                                var s = r.Next(1, 4);
+                                var status = s switch
+                                {
+                                    1 => "unreserved",
+                                    2 => "reserved",
+                                    3 => "occupied"
+                                };
+                                await SendMessage(ws, new BlockOccupancyUpdateSocketMessage() { BlockId = "BA" + i, State = status });
+                            }
+                        });
 
                         msg.Clear();
                     }

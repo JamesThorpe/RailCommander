@@ -1,20 +1,22 @@
 ﻿"use strict";
 
 import consoleLog from "./socket-console-logger.js";
+import updateMonitor from "./socket-update-monitor.js";
 
 const socketHandlers = {
-    log: consoleLog
+    log: consoleLog,
+    layoutupdate: updateMonitor
 };
 
 function openSocket() {
     var ws = new WebSocket("ws://" + window.location.host + "/ws");
     ws.onopen = function () {
-        /*
+        
         ws.send(JSON.stringify({
             type: "echo",
             message: "Client opened at " + new Date()
         }));
-        */
+        
     }
     ws.onmessage = function(m) {
         const msg = JSON.parse(m.data);
@@ -28,5 +30,6 @@ function openSocket() {
 
 
 export default { 
-    open: openSocket
+    open: openSocket,
+    bindLayout: updateMonitor.bindLayout
 };

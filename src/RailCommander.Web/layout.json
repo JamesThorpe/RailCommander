@@ -1,0 +1,320 @@
+{
+  "blocks": [
+    {
+      "id": "BA1",
+      "state": "occupied",
+      "sections": [
+        {
+          "type": "straight",
+          "x": 5,
+          "y": 5,
+          "angle": 0
+        },
+        {
+          "id": "PA1",
+          "type": "turnout-left",
+          "x": 6,
+          "y": 5,
+          "angle": 0,
+          "position": "normal"
+        },
+        {
+          "type": "straight",
+          "x": 7,
+          "y": 5,
+          "angle": 0
+        },
+        {
+          "id": "PA2",
+          "type": "turnout-right",
+          "x": 7,
+          "y": 4,
+          "angle": -45,
+          "position": "normal"
+        },
+        {
+          "type": "curve-left",
+          "x": 8,
+          "y": 3,
+          "angle": 180
+        },
+        {
+          "type": "straight",
+          "x": 8,
+          "y": 4,
+          "angle": 0
+        }
+      ]
+    },
+    {
+      "id": "BA2",
+      "state": "unreserved",
+      "sections": [
+        {
+          "type": "straight",
+          "x": 9,
+          "y": 3,
+          "angle": 0
+        },
+        {
+          "type": "straight",
+          "x": 9,
+          "y": 8,
+          "angle": 0
+        },
+        {
+          "type": "straight",
+          "x": 10,
+          "y": 3,
+          "angle": 0
+        },
+        {
+          "type": "straight",
+          "x": 10,
+          "y": 8,
+          "angle": 0
+        },
+        {
+          "type": "straight",
+          "x": 11,
+          "y": 3,
+          "angle": 0
+        },
+        {
+          "type": "straight",
+          "x": 11,
+          "y": 8,
+          "angle": 0
+        },
+        {
+          "type": "straight",
+          "x": 12,
+          "y": 3,
+          "angle": 0
+        },
+        {
+          "type": "straight",
+          "x": 12,
+          "y": 8,
+          "angle": 0
+        },
+        {
+          "type": "straight",
+          "x": 13,
+          "y": 3,
+          "angle": 0
+        },
+        {
+          "type": "curve-right",
+          "x": 14,
+          "y": 3,
+          "angle": 0
+        },
+        {
+          "type": "straight",
+          "x": 13,
+          "y": 8,
+          "angle": 0
+        },
+        {
+          "type": "curve-left",
+          "x": 14,
+          "y": 8,
+          "angle": 0
+        },
+        {
+          "type": "curve-right",
+          "x": 15,
+          "y": 7,
+          "angle": 90
+        },
+        {
+          "type": "curve-left",
+          "x": 15,
+          "y": 4,
+          "angle": -90
+        },
+        {
+          "type": "straight",
+          "x": 15,
+          "y": 5,
+          "angle": 90
+        },
+        {
+          "type": "straight",
+          "x": 15,
+          "y": 6,
+          "angle": 90
+        }
+      ]
+    },
+    {
+      "id": "BA3",
+      "state": "reserved",
+      "sections": [
+        {
+          "type": "straight",
+          "x": 9,
+          "y": 4,
+          "angle": 0
+        },
+        {
+          "type": "straight",
+          "x": 9,
+          "y": 7,
+          "angle": 0
+        },
+
+
+        {
+          "type": "straight",
+          "x": 10,
+          "y": 4,
+          "angle": 0
+        },
+        {
+          "type": "straight",
+          "x": 10,
+          "y": 7,
+          "angle": 0
+        },
+
+
+        {
+          "type": "straight",
+          "x": 11,
+          "y": 4,
+          "angle": 0
+        },
+        {
+          "type": "straight",
+          "x": 11,
+          "y": 7,
+          "angle": 0
+        },
+
+        {
+          "type": "straight",
+          "x": 12,
+          "y": 4,
+          "angle": 0
+        },
+        {
+          "type": "straight",
+          "x": 12,
+          "y": 7,
+          "angle": 0
+        },
+
+        {
+          "type": "curve-right",
+          "x": 13,
+          "y": 4,
+          "angle": 0
+        },
+        {
+          "type": "curve-left",
+          "x": 14,
+          "y": 5,
+          "angle": 270
+        },
+        {
+          "type": "curve-left",
+          "x": 13,
+          "y": 7,
+          "angle": 0
+        },
+        {
+          "type": "curve-right",
+          "x": 14,
+          "y": 6,
+          "angle": 90
+        }
+      ]
+    },
+    {
+      "id": "BA4",
+      "state": "unreserved",
+      "sections": [
+        {
+          "id": "PA3",
+          "type": "turnout-left",
+          "x": 8,
+          "y": 5,
+          "angle": 180,
+          "position": "normal"
+        },
+        {
+          "type": "straight",
+          "x": 9,
+          "y": 5,
+          "angle": 0
+        },
+        {
+          "type": "straight",
+          "x": 10,
+          "y": 5,
+          "angle": 0
+        },
+        {
+          "type": "straight",
+          "x": 11,
+          "y": 5,
+          "angle": 0
+        },
+        {
+          "type": "straight",
+          "x": 12,
+          "y": 5,
+          "angle": 0
+        }
+      ]
+    },
+    {
+      "id": "BA5",
+      "state": "unreserved",
+      "sections": [
+        {
+          "type": "straight",
+          "x": 5,
+          "y": 6,
+          "angle": 0
+        },
+        {
+          "id": "PA4",
+          "type": "turnout-right",
+          "x": 6,
+          "y": 6,
+          "angle": 0,
+          "position": "normal"
+        },
+        {
+          "type": "curve-left",
+          "x": 7,
+          "y": 6,
+          "angle": 0
+        },
+        {
+          "id": "PA5",
+          "type": "turnout-left",
+          "x": 7,
+          "y": 7,
+          "angle": 45,
+          "position": "normal"
+        },
+        {
+          "type": "curve-right",
+          "x": 8,
+          "y": 8,
+          "angle": 180
+        },
+        {
+          "type": "straight",
+          "x": 8,
+          "y": 7,
+          "angle": 0
+        }
+      ]
+    }
+  ]
+}

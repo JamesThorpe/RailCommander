@@ -10,6 +10,7 @@
     import Socket from "/js/SocketHandler.js"
     import TrackPlan from "./TrackPlan/TrackPlan.vue"
     import Api from "/js/api.js"
+    
 
     export default {
         components: {
@@ -25,6 +26,7 @@
         mounted: async function () {
             Socket.open();
             this.layout = await Api.loadLayoutAsync();
+            Socket.bindLayout(this.layout);
         }
     }
 </script>
