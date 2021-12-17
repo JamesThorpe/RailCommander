@@ -87,11 +87,12 @@ namespace RailCommander.Web
                                     3 => "occupied"
                                 };
                                 await SendMessage(ws, new BlockOccupancyUpdateSocketMessage() { BlockId = "BA" + i, State = status });
-                                */
+                                
                                 await Task.Delay(500);
                                 var i = r.Next(1, 6);
                                 var s = r.Next(1, 3);
                                 await SendMessage(ws, new TurnoutStateUpdateSocketMessage() { TurnoutId = "PA" + i, TurnoutState = s == 1 ? "normal" : "reverse" });
+                                */
                             }
                         });
 

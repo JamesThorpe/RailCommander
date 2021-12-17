@@ -6,10 +6,17 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RailCommander.Core\RailCommander.Core.csproj" />
+    <ProjectReference Include="C:\Users\james\Dropbox\Development\Asgard\Asgard\Asgard.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
 </Project>

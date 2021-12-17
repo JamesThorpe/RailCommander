@@ -281,7 +281,7 @@
           "angle": 0
         },
         {
-          "id": "PA4",
+          "id": "PA5",
           "type": "turnout-right",
           "x": 6,
           "y": 6,
@@ -295,7 +295,7 @@
           "angle": 0
         },
         {
-          "id": "PA5",
+          "id": "PA4",
           "type": "turnout-left",
           "x": 7,
           "y": 7,

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Asgard.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,9 +29,11 @@ namespace RailCommander.Web
         {
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.ConfigureSockets();
-            
+            var config = Configuration.GetSection("Asgard");
+            services.AddAsgard(config);
 
             services.AddSingleton<ILayout, Layout>();
+            
 
         }
 
