@@ -5,6 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="layout.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="layout.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="C:\Users\james\Dropbox\Development\Asgard\Asgard\Asgard.csproj" />
   </ItemGroup>
 

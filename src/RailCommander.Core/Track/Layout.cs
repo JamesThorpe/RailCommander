@@ -6,13 +6,28 @@ namespace RailCommander.Core.Track
     public class Layout : ILayout
     {
         private List<IBlock> _blocks = new List<IBlock>();
+        private List<IPoint> _points = new List<IPoint>();
 
 
         public IEnumerable<IBlock> Blocks => _blocks;
 
+        public IEnumerable<IPoint> Points => _points;
+
         public void AddBlock(IBlock block)
         {
             _blocks.Add(block);
+        }
+
+        public void AddBlocks(IEnumerable<IBlock> blocks)
+        {
+            foreach (var b in blocks) {
+                AddBlock(b);
+            }
+        }
+
+        public void AddPoint(IPoint point)
+        {
+            _points.Add(point);
         }
 
         private IBlock FindBlock(IBlockEnd blockEnd)
@@ -111,11 +126,6 @@ namespace RailCommander.Core.Track
             return new Route(blocks.ToArray());
         }
 
-        public void AddBlocks(IEnumerable<IBlock> blocks)
-        {
-            foreach (var b in blocks) {
-                AddBlock(b);
-            }
-        }
+
     }
 }

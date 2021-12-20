@@ -10,5 +10,9 @@ namespace RailCommander.Core.Track
 
         void AddBlock(IBlock block);
         void AddBlocks(IEnumerable<IBlock> block);
+
+        IEnumerable<IPoint> Points { get; }
+
+        void AddPoint(IPoint point);
     }
 }
