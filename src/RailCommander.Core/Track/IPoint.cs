@@ -12,7 +12,9 @@ namespace RailCommander.Core.Track
     }
     public interface IPoint
     {
-        public PointDirection Direction { get; set; }
+        string Id { get; }
+        PointDirection Direction { get; set; }
+        Task SetDirection();
     }
 
     public class Point : IPoint
@@ -23,6 +25,8 @@ namespace RailCommander.Core.Track
         public ushort NodeNumber { get; set; }
         public ushort EventNumber { get; set; }
         public bool IsReversed { get; set; }
+
+        public string Id { get; set; }
 
         public PointDirection Direction {
             get => direction; set {
@@ -42,9 +46,9 @@ namespace RailCommander.Core.Track
             ICbusOpCode msg = null;
 
             if ((Direction == PointDirection.Normal && !IsReversed) || (Direction == PointDirection.Reverse && IsReversed)) {
-                msg = new ACON() { NodeNumber = NodeNumber, EventNumber = EventNumber };
+                msg = new Acon() { NodeNumber = NodeNumber, EventNumber = EventNumber };
             } else if ((Direction == PointDirection.Reverse && !IsReversed) || (Direction == PointDirection.Normal && IsReversed)) {
-                msg = new ACOF() { NodeNumber = NodeNumber, EventNumber = EventNumber };
+                msg = new Acof() { NodeNumber = NodeNumber, EventNumber = EventNumber };
             } else {
                 throw new Exception("Invalid point state");
             }

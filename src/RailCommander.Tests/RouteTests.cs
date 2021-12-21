@@ -65,7 +65,7 @@ namespace RailCommander.Tests
             var l = new Layout();
             l.AddBlock(b.Object);
 
-            var r = l.FindRoute(b.Object, b.Object);
+            var r = Route.FindRoute(l, b.Object, b.Object);
 
             Assert.Equal(new[] { b.Object }, r.Blocks);
         }
@@ -95,7 +95,7 @@ namespace RailCommander.Tests
             l.AddBlock(b1.Object);
             l.AddBlock(b2.Object);
 
-            var r = l.FindRoute(b1.Object, b2.Object);
+            var r = Route.FindRoute(l, b1.Object, b2.Object);
             Assert.Equal(new[] { b1.Object, b2.Object }, r.Blocks);
         }
 

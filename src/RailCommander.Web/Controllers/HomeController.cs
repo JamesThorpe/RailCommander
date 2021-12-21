@@ -17,10 +17,8 @@ namespace RailCommander.Web.Controllers
 
         public HomeController(ILogger<HomeController> logger, ILayout layout)
         {
-
-            if (layout.Blocks.Count() == 0) {
-                var b = new Block("Block 1");
-                layout.AddBlock(b);
+            if (layout.Points.Count() == 0) {
+                layout.LoadLayout("bin/debug/net6.0/layout.json");
             }
             _layout = layout;
 

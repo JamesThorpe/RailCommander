@@ -101,7 +101,7 @@ namespace RailCommander.Tests
             l.AddBlock(ldata.Block2);
             l.AddBlock(ldata.Block3);
 
-            var r = l.FindRoute(ldata.Block2, ldata.Block3);
+            var r = Route.FindRoute(l, ldata.Block2, ldata.Block3);
 
             Assert.Equal(new[] { ldata.Block2, ldata.Block1, ldata.Block3 }, r.Blocks);
 

@@ -2,7 +2,7 @@
   "blocks": [
     {
       "id": "BA1",
-      "state": "occupied",
+      "state": "unreserved",
       "sections": [
         {
           "type": "straight",
@@ -150,7 +150,7 @@
     },
     {
       "id": "BA3",
-      "state": "reserved",
+      "state": "unreserved",
       "sections": [
         {
           "type": "straight",

@@ -66,7 +66,7 @@ namespace RailCommander.Tests
         {
             var ltd = new LoopTestData();
 
-            var r = ltd.Layout.FindRoute(ltd.Blocks[0], ltd.Blocks[3]);
+            var r = Route.FindRoute(ltd.Layout, ltd.Blocks[0], ltd.Blocks[3]);
 
             Assert.Equal(new[]{ltd.Blocks[0], ltd.Blocks[1], ltd.Blocks[2], ltd.Blocks[3]}, r.Blocks);
             Assert.True(r.IsValid);
@@ -76,7 +76,7 @@ namespace RailCommander.Tests
         public void ShortWayRound()
         {
             var ltd = new LoopTestData();
-            var r = ltd.Layout.FindRoute(ltd.Blocks[5], ltd.Blocks[1]);
+            var r = Route.FindRoute(ltd.Layout, ltd.Blocks[5], ltd.Blocks[1]);
             Assert.Equal(new[]{ltd.Blocks[5], ltd.Blocks[0], ltd.Blocks[1]}, r.Blocks);
         }
 
@@ -84,7 +84,7 @@ namespace RailCommander.Tests
         public void LongWayRound()
         {
             var ltd = new LoopTestData();
-            var r = ltd.Layout.FindRoute(ltd.Blocks[1], ltd.Blocks[5]);
+            var r = Route.FindRoute(ltd.Layout, ltd.Blocks[1], ltd.Blocks[5]);
             Assert.Equal(new []{ltd.Blocks[1], ltd.Blocks[2], ltd.Blocks[3], ltd.Blocks[4], ltd.Blocks[5]}, r.Blocks);
         }
     }

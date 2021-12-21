@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RailCommander.Core.Track;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace RailCommander.Web
@@ -13,18 +14,19 @@ namespace RailCommander.Web
     public class LayoutController : ControllerBase
     {
         private readonly ICbusMessenger cbusMessenger;
+        private readonly ILayout layout;
 
-        public LayoutController(ICbusMessenger cbusMessenger)
+        public LayoutController(ICbusMessenger cbusMessenger, ILayout layout)
         {
             this.cbusMessenger = cbusMessenger;
+            this.layout = layout;
             this.cbusMessenger.Open();
         }
 
         [HttpGet]
         public string Get()
         {
-            var f = System.IO.File.ReadAllText("layout.json");
-            return f;
+            return layout.LayoutData;
         }
 
         private static Dictionary<ushort, bool> points = new Dictionary<ushort, bool>();
@@ -32,6 +34,11 @@ namespace RailCommander.Web
         [Route("turnout")]
         public async Task ToggleTurnout(TurnoutRequest request)
         {
+            var p = layout.Points.Single(p => p.Id == request.Id);
+            p.Direction = p.Direction == PointDirection.Normal ? PointDirection.Reverse : PointDirection.Normal;
+            p.SetDirection();
+
+            /*
 
             ushort evNo = request.Id switch
             {
@@ -48,13 +55,11 @@ namespace RailCommander.Web
             value = !value;
             points[evNo] = value;
 
-            if (value)
-            {
-                await cbusMessenger.SendMessage(new ACON() { NodeNumber = 2, EventNumber = evNo });
-            }else
-            {
-                await cbusMessenger.SendMessage(new ACOF() { NodeNumber = 2, EventNumber = evNo });
-            }
+            if (value) {
+                await cbusMessenger.SendMessage(new Acon() { NodeNumber = 2, EventNumber = evNo });
+            } else {
+                await cbusMessenger.SendMessage(new Acof() { NodeNumber = 2, EventNumber = evNo });
+            }*/
         }
     }
 }
