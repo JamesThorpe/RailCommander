@@ -20,7 +20,7 @@ namespace RailCommander.Web
         {
             this.cbusMessenger = cbusMessenger;
             this.layout = layout;
-            this.cbusMessenger.Open();
+            this.cbusMessenger.OpenAsync();
         }
 
         [HttpGet]
@@ -36,7 +36,7 @@ namespace RailCommander.Web
         {
             var p = layout.Points.Single(p => p.Id == request.Id);
             p.Direction = p.Direction == PointDirection.Normal ? PointDirection.Reverse : PointDirection.Normal;
-            p.SetDirection();
+            await p.SetDirection();
 
             /*
 
