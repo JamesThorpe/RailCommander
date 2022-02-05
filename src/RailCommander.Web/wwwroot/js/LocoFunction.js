@@ -19,6 +19,14 @@ class LocoFunction {
         this._on = val;
         ApiFuncs.sendApiPost("/api/engine/function", { Address: this._address, Index: this.Index, On: this._on });
     }
+
+    Activate() {
+        this.On = true;
+    }
+
+    Deactivate() {
+        this.On = false;
+    }
 }
 
 

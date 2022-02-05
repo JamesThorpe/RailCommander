@@ -11,10 +11,10 @@
         <button @click="loco.Stop">Stop</button>
         <button @click="loco.EmergencyStop">Emergency Stop</button>
 
-        <div v-for="fun in loco.Functions">
+        <span v-for="fun in loco.Functions">
             <toggle-function v-if="fun.Type == 'toggle'" :fn="fun" />
-                             
-        </div>
+            <momentary-function v-if="fun.Type === 'momentary'" :fn="fun" />
+        </span>
     </div>
 </template>
 
@@ -22,11 +22,12 @@
     "use strict";
 
     import ToggleFunction from './ToggleFunction.vue';
-
+    import MomentaryFunction from './MomentaryFunction.vue'
 
     export default {
         components: {
-            'toggle-function': ToggleFunction
+            'toggle-function': ToggleFunction,
+            'momentary-function': MomentaryFunction
         },
         props: ['loco']
     }
