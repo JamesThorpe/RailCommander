@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Asgard.Communications;
 using Asgard.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using RailCommander.Core.Locomotives;
 using RailCommander.Core.Track;
 using RailCommander.Web.Sockets;
 
@@ -33,6 +35,7 @@ namespace RailCommander.Web
             services.AddAsgard(config);
 
             services.AddSingleton<ILayout, Layout>();
+            services.AddSingleton<EngineManager>();
             
 
         }

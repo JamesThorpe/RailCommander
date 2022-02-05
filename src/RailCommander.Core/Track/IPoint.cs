@@ -46,9 +46,9 @@ namespace RailCommander.Core.Track
             ICbusOpCode msg = null;
 
             if ((Direction == PointDirection.Normal && !IsReversed) || (Direction == PointDirection.Reverse && IsReversed)) {
-                msg = new Acon() { NodeNumber = NodeNumber, EventNumber = EventNumber };
+                msg = new AccessoryOn() { NodeNumber = NodeNumber, EventNumber = EventNumber };
             } else if ((Direction == PointDirection.Reverse && !IsReversed) || (Direction == PointDirection.Normal && IsReversed)) {
-                msg = new Acof() { NodeNumber = NodeNumber, EventNumber = EventNumber };
+                msg = new AccessoryOff() { NodeNumber = NodeNumber, EventNumber = EventNumber };
             } else {
                 throw new Exception("Invalid point state");
             }

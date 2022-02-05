@@ -11,3 +11,8 @@
 .fade-leave-to {
     opacity: 0;
 }
+
+.loco-control {
+    border: 1px solid black;
+    border-radius: 5px;
+}

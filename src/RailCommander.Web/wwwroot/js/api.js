@@ -28,6 +28,22 @@ async function loadLayoutAsync () {
         })
     });
 
+    layout.locos = [
+        {
+            Address: 5,
+            _speed: 0,
+            get Speed() {
+                return this._speed;
+            },
+            set Speed(value) {
+                this._speed = value;
+                sendApiPost("/api/engine/speed", {Address: this.Address, Speed: value })
+            },
+            Stop: function () { this.Speed = 0; },
+            EmergencyStop: function () { this.Speed = 1; }
+        }
+    ];
+
     return layout;
 }
 

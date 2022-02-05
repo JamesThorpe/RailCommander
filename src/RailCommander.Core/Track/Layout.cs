@@ -18,7 +18,8 @@ namespace RailCommander.Core.Track
         public Layout(ICbusMessenger cbusMessenger)
         {
             this.cbusMessenger = cbusMessenger;
-            this.cbusMessenger.Open();
+            //TODO: shouldn't be opening in constructor
+            this.cbusMessenger.OpenAsync();
         }
 
         public IEnumerable<IBlock> Blocks => _blocks;
