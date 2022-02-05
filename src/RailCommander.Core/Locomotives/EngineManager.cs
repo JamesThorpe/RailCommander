@@ -26,6 +26,22 @@ namespace RailCommander.Core.Locomotives
 
         public async Task SetEngineSpeed(int address, int speed, bool forwards)
         {
+            var session = await GetSession(address);
+            byte s = (byte)speed;
+            if (forwards) {
+                s += 128;
+            }
+            await session.SetSpeedAndDirection(s);
+        }
+
+        public async Task SetEngineFunction(int address, int index, bool on)
+        {
+            var session = await GetSession(address);
+            await session.SetFunction((byte)index, on);
+        }
+
+        private async Task<IEngineSession> GetSession(int address)
+        {
             if (!sessions.TryGetValue(address, out IEngineSession session)) {
                 session = await engineManager.RequestEngineSession((ushort)address);
                 if (sessions.TryAdd(address, session)) {
@@ -34,11 +50,8 @@ namespace RailCommander.Core.Locomotives
                     };
                 }
             }
-            byte s = (byte)speed;
-            if (forwards) {
-                s += 128;
-            }
-            await session.SetSpeedAndDirection(s);
+
+            return session;
         }
     }
 }

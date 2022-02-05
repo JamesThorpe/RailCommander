@@ -22,5 +22,12 @@ namespace RailCommander.Web.Controllers
         {
             await engineManager.SetEngineSpeed(request.Address, request.Speed, request.Forwards);
         }
+
+        [HttpPost]
+        [Route("function")]
+        public async Task SetEngineFunction(FunctionRequest request)
+        {
+            await engineManager.SetEngineFunction(request.Address, request.Index, request.On);
+        }
     }
 }

@@ -1,14 +1,7 @@
 ﻿"use strict";
 
-async function sendApiPost(url, data) {
-    await fetch(url, {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    });
-}
+import { sendApiPost } from "./ApiFunctions.js";
+import Locomotive from "./Locomotive.js";
 
 async function loadLayoutAsync () {
 
@@ -28,20 +21,29 @@ async function loadLayoutAsync () {
         })
     });
 
+
+    //TODO: load from server data
     layout.locos = [
-        {
-            Address: 5,
-            _speed: 0,
-            get Speed() {
-                return this._speed;
-            },
-            set Speed(value) {
-                this._speed = value;
-                sendApiPost("/api/engine/speed", {Address: this.Address, Speed: value })
-            },
-            Stop: function () { this.Speed = 0; },
-            EmergencyStop: function () { this.Speed = 1; }
-        }
+        new Locomotive(5),
+        new Locomotive(3, [
+            {
+                Index: 0,
+                Type: 'toggle',
+                Name: 'Lights'
+            }, {
+                Index: 1,
+                Type: 'toggle',
+                Name: "Sounds"
+            }, {
+                Index: 27,
+                Type: 'toggle',
+                Name: "Volume Down"
+            }, {
+                Index: 28,
+                Type: 'toggle',
+                Name: "Volume Up"
+            }
+        ])
     ];
 
     return layout;
