@@ -1,14 +1,38 @@
 ﻿<template>
     <h1>Rail Commander</h1>
 
+    <!--
     <track-plan :layout="layout" />
-
+        -->
     <locomotive v-for="loco in layout.locos" :loco="loco" />
 </template>
 
-<script>
-    "use strict";
-    
+<script lang="ts">
+    import Vue from 'vue';
+    import Api from '../api/Api'
+    interface Data {
+        layout: object
+    }
+
+    export default Vue.extend({
+        data(): Data {
+            return {
+                layout: {}
+            };
+        },
+        created() {
+            this.initialise();
+        },
+        methods: {
+            initialise(): void {
+
+            }
+        }
+
+    });
+
+    /*
+
     import Socket from "/js/SocketHandler.js"
     import TrackPlan from "./TrackPlan/TrackPlan.vue"
     import Api from "/js/api.js"
@@ -32,6 +56,6 @@
             this.layout = await Api.loadLayoutAsync();
             Socket.bindLayout(this.layout);
         }
-        
     }
+    */
 </script>
