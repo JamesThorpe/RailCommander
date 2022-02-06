@@ -9,22 +9,25 @@
 
 <script lang="ts">
     import Vue from 'vue';
-    import Api from '../api/Api'
+    import Api from '../api/api'
+    import { Layout } from '../api/types';
+
     interface Data {
-        layout: object
+        layout?: Layout
     }
 
     export default Vue.extend({
         data(): Data {
             return {
-                layout: {}
+                layout: undefined
             };
         },
         created() {
             this.initialise();
         },
         methods: {
-            initialise(): void {
+            async initialise() {
+                this.layout = await Api.LoadLayoutData();
 
             }
         }
