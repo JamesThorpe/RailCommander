@@ -15,8 +15,7 @@ namespace RailCommander.Web
         public static IApplicationBuilder ConfigureSockets(this IApplicationBuilder app)
         {
             app.UseWebSockets(new WebSocketOptions {
-                KeepAliveInterval = TimeSpan.FromSeconds(30),
-                ReceiveBufferSize = SocketManager.BufferSize
+                KeepAliveInterval = TimeSpan.FromSeconds(30)
             });
             
             return app.Use(async (context, next) => {

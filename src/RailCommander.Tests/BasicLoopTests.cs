@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Asgard.Communications;
 using Moq;
 using RailCommander.Core.Track;
 using Xunit;
@@ -53,7 +54,7 @@ namespace RailCommander.Tests
 
             Blocks = mockBlocks.Select(mb => mb.Object).ToArray();
 
-            Layout = new Layout();
+            Layout = new Layout(Mock.Of<ICbusMessenger>());
             Layout.AddBlocks(Blocks);
         }
 

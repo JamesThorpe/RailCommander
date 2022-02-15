@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.16" />
@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RailCommander.Core\RailCommander.Core.csproj" />
-    <ProjectReference Include="C:\Users\james\Dropbox\Development\Asgard\Asgard\Asgard.csproj" />
+    <ProjectReference Include="..\..\..\Asgard\Asgard\Asgard.csproj" />
   </ItemGroup>
 
   <ItemGroup>
