@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RailCommander.Web", "RailCo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RailCommander.Tests", "RailCommander.Tests\RailCommander.Tests.csproj", "{671D66C2-0A05-4576-B2DB-2C17D07CA3D3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Asgard", "C:\Users\james\Dropbox\Development\Asgard\Asgard\Asgard.csproj", "{E1960490-885C-41FE-904F-42F794BF508F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Asgard", "..\..\Asgard\Asgard\Asgard.csproj", "{E1960490-885C-41FE-904F-42F794BF508F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
