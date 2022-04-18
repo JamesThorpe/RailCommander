@@ -1,10 +1,6 @@
 ﻿using Asgard.Communications;
 using Asgard.EngineControl;
-using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace RailCommander.Core.Locomotives

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RailCommander.Core.Track.LayoutData
+﻿namespace RailCommander.Core.Track.LayoutData
 {
 
     public class Layout

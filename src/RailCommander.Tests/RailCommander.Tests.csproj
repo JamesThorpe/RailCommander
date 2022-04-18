@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RailCommander.Core\RailCommander.Core.csproj" />
-    <ProjectReference Include="..\RailCommander.Web\RailCommander.Web.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace RailCommander.Core.Track
+﻿namespace RailCommander.Core.Track
 {
     public enum BlockPreferredDirection
     {

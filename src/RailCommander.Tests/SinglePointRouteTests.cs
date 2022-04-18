@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using Asgard.Communications;
 using Moq;
 using RailCommander.Core.Track;
 using Xunit;
@@ -96,7 +95,7 @@ namespace RailCommander.Tests
         {
             var ldata = new SinglePointLayout();
 
-            var l = new Layout();
+            var l = new Layout(Mock.Of<ICbusMessenger>());
             l.AddBlock(ldata.Block1);
             l.AddBlock(ldata.Block2);
             l.AddBlock(ldata.Block3);

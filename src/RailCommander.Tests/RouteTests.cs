@@ -1,5 +1,5 @@
-using System;
 using System.Collections.Generic;
+using Asgard.Communications;
 using Moq;
 using RailCommander.Core.Track;
 using Xunit;
@@ -62,7 +62,7 @@ namespace RailCommander.Tests
         public void FindSimpleRouteInOneBlock()
         {
             var b = new Mock<IBlock>();
-            var l = new Layout();
+            var l = new Layout(Mock.Of<ICbusMessenger>());
             l.AddBlock(b.Object);
 
             var r = Route.FindRoute(l, b.Object, b.Object);
@@ -91,7 +91,7 @@ namespace RailCommander.Tests
             b1e.SetupGet(be => be.BlockConnections).Returns(new Dictionary<IBlockEnd, Dictionary<IPoint, PointDirection>> { { b2e.Object, null } });
             b2e.SetupGet(be => be.BlockConnections).Returns(new Dictionary<IBlockEnd, Dictionary<IPoint, PointDirection>> { { b1e.Object, null } });
 
-            var l = new Layout();
+            var l = new Layout(Mock.Of<ICbusMessenger>());
             l.AddBlock(b1.Object);
             l.AddBlock(b2.Object);
 
