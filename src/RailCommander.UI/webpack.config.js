@@ -48,11 +48,11 @@ module.exports = {
             test: /\.vue$/,
             loader: 'vue-loader'
         }, {
-            test: /\.less$/i,
+            test: /\.s?[ca]ss$/i,
             use: [
                 "style-loader",
                 "css-loader",
-                "less-loader"
+                "sass-loader"
             ]
         }]
     },

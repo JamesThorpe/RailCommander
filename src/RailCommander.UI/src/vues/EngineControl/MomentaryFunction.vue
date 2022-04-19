@@ -1,5 +1,5 @@
 ﻿<template>
-    <button @mousedown="fn.Activate" @mouseup="fn.Deactivate">{{fn.Name}}</button>
+    <v-btn @mousedown="fn.Activate()" @mouseup="fn.Deactivate()">{{fn.Name}}</v-btn>
 </template>
 
 <script language="ts">
