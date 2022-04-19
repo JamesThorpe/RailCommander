@@ -1,8 +1,5 @@
 ﻿<template>
-	<label>
-		<input v-model="fn.On" type="checkbox" />
-		<span>{{fn.Name}}</span>
-	</label>
+	<v-switch hide-details="true" density="compact" v-model="fn.On" :label="fn.Name"></v-switch>
 </template>
 
 <script language="ts">

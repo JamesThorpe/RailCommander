@@ -17,10 +17,10 @@ class RailCommander implements IRailCommander {
         this._engines = [];
         this._layout = new Layout();
 
-        let eng = new Engine(5, "abc");
+        let eng = new Engine(5, "Class 220 Virgin Voyager");
         this._engines.push(eng);
 
-        eng = new Engine(3, "xyz");
+        eng = new Engine(3, "Class 800 GWR IET");
         this._engines.push(eng);
 
         let funcs = [
