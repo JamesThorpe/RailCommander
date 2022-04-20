@@ -12,7 +12,7 @@ const app = createApp({
     components: {
         "rail-commander": RailCommander
     },
-    template: "<rail-commander />"
+    template: "<v-app><rail-commander /></v-app>"
 });
 
 const vuetify = createVuetify({

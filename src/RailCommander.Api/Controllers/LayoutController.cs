@@ -34,8 +34,7 @@ namespace RailCommander.Api.Controllers
         public async Task ToggleTurnout(TurnoutRequest request)
         {
             var p = layout.Points.Single(p => p.Id == request.Id);
-            p.Direction = p.Direction == PointDirection.Normal ? PointDirection.Reverse : PointDirection.Normal;
-            await p.SetDirection();
+            await p.SetDirection(p.Direction == PointDirection.Normal ? PointDirection.Reverse : PointDirection.Normal);
         }
     }
 }

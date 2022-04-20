@@ -13,14 +13,14 @@ namespace RailCommander.Core.Track
     public interface IPoint
     {
         string Id { get; }
-        PointDirection Direction { get; set; }
-        Task SetDirection();
+        PointDirection Direction { get; }
+        Task SetDirection(PointDirection direction);
     }
 
     public class Point : IPoint
     {
         private readonly ICbusMessenger cbusMessenger;
-        private PointDirection direction;
+        private PointDirection _direction;
 
         public ushort NodeNumber { get; set; }
         public ushort EventNumber { get; set; }
@@ -29,11 +29,7 @@ namespace RailCommander.Core.Track
         public string Id { get; set; }
 
         public PointDirection Direction {
-            get => direction; set {
-                direction = value;
-                //TODO: losing async/await here
-                _ = SetDirection();
-            }
+            get => _direction;
         }
 
         public Point(ICbusMessenger cbusMessenger)
@@ -41,10 +37,10 @@ namespace RailCommander.Core.Track
             this.cbusMessenger = cbusMessenger;
         }
 
-        public async Task SetDirection()
+        public async Task SetDirection(PointDirection direction)
         {
-            ICbusOpCode msg = null;
-
+            _direction = direction;
+            ICbusOpCode msg;
             if ((Direction == PointDirection.Normal && !IsReversed) || (Direction == PointDirection.Reverse && IsReversed)) {
                 msg = new AccessoryOn() { NodeNumber = NodeNumber, EventNumber = EventNumber };
             } else if ((Direction == PointDirection.Reverse && !IsReversed) || (Direction == PointDirection.Normal && IsReversed)) {

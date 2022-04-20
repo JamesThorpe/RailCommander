@@ -65,8 +65,7 @@ namespace RailCommander.Core.Track
                             p.IsReversed = true;
                         }
                         AddPoint(p);
-                        p.Direction = PointDirection.Normal;
-                        await p.SetDirection();
+                        await p.SetDirection(PointDirection.Normal);
                     }
                 }
             }
