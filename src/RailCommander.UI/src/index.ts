@@ -17,7 +17,16 @@ const app = createApp({
 
 const vuetify = createVuetify({
     components,
-    directives
+    directives,
+    theme: {
+        themes: {
+            light: {
+                colors: {
+                    primary: "#1d3dbf"
+                }
+            }
+        }
+    }
 });
 app.use(vuetify);
 
